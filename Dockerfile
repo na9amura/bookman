@@ -1,4 +1,5 @@
-FROM ruby:2.4.1-alpine
+# FROM ruby:2.4.1-alpine
+FROM artwishlist/alpine-3.6-ruby-2.4.1
 
 ENV APP_ROOT /usr/src/bookman
 
@@ -16,6 +17,8 @@ RUN \
     postgresql-client \
     sqlite-dev \
     tzdata \
+    git\
+    yarn\
     && \
   rm -rf /var/cache/apk/*
 
