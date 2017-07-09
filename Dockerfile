@@ -37,5 +37,9 @@ RUN \
 
 COPY . $APP_ROOT
 
+# compile webpack (for development)
+RUN \
+  bin/webpack
+
 EXPOSE  9292
 CMD ["rails", "server", "-b", "0.0.0.0", "-p","9292"]

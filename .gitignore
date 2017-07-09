@@ -37,8 +37,10 @@ config/initializers/secret_token.rb
 *.bowerrc
 bower.json
 
-/bin/*
 /tmp/*
 /log/*
 
 .byebug_history
+/public/packs
+/public/packs-test
+/node_modules
