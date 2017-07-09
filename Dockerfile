@@ -19,6 +19,7 @@ RUN \
     tzdata \
     git\
     yarn\
+    openssl\
     && \
   rm -rf /var/cache/apk/*
 
