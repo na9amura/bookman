@@ -29,9 +29,9 @@ export default {
       if(filterKey) {
         books = books.filter(
           (row) => {
-            return Object.keys(row).some(
-              (key) => String(row[key]).toLowerCase().indexOf(filterKey) > -1
-            )
+            return Object.keys(row)
+              .filter((key) => key !== 'url' )
+              .some((key) => String(row[key]).toLowerCase().indexOf(filterKey) > -1)
           }
         )
       }
