@@ -8,23 +8,18 @@
 
 <script>
 import Book from './book.vue'
+import axios from 'axios'
 
 export default {
+  components: {
+    Book,
+  },
   props: {
     filterKey: String,
   },
   data: function () {
     return {
-      books: [
-        {
-          id: 1,
-          name: 'foo',
-        },
-        {
-          id: 2,
-          name: 'bar',
-        }
-      ],
+      books: {},
     }
   },
   computed: {
@@ -35,9 +30,7 @@ export default {
         books = books.filter(
           (row) => {
             return Object.keys(row).some(
-              (key) => {
-                return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-              }
+              (key) => String(row[key]).toLowerCase().indexOf(filterKey) > -1
             )
           }
         )
@@ -45,6 +38,21 @@ export default {
       return books
     },
   },
-  components: { Book }
+  created: function() {
+    this.init()
+  },
+  methods: {
+    init: function() {
+      this.loadBooks()
+    },
+    loadBooks: function() {
+      var vm = this
+      axios.get('/books.json')
+        .then(function(response) {
+          console.log(response.data)
+          vm.books = response.data
+        })
+    }
+  }
 }
 </script>
