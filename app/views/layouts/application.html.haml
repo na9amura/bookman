@@ -9,4 +9,6 @@
     = yield
     #app
       %hello
-      %books
+      %form#search
+        %input{ name: :query, 'v-model': :searchQuery }
+      %books{ ':filter-key': :searchQuery }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="book in books">
+    <div v-for="book in filteredBooks">
       <book :book=book></book>
     </div>
   </div>
@@ -10,6 +10,9 @@
 import Book from './book.vue'
 
 export default {
+  props: {
+    filterKey: String,
+  },
   data: function () {
     return {
       books: [
@@ -23,6 +26,24 @@ export default {
         }
       ],
     }
+  },
+  computed: {
+    filteredBooks: function() {
+      let filterKey = this.filterKey && this.filterKey.toLowerCase()
+      let books = this.books
+      if(filterKey) {
+        books = books.filter(
+          (row) => {
+            return Object.keys(row).some(
+              (key) => {
+                return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+              }
+            )
+          }
+        )
+      }
+      return books
+    },
   },
   components: { Book }
 }
