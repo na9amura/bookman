@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Book from './book.vue'
+import Book from './book_row.vue'
 import axios from 'axios'
 
 export default {
@@ -49,7 +49,6 @@ export default {
       var vm = this
       axios.get('/books.json')
         .then(function(response) {
-          console.log(response.data)
           vm.books = response.data
         })
     }
