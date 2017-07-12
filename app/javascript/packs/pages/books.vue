@@ -1,5 +1,8 @@
 <template>
   <div>
+    <form id="search">
+      <input value="query" v-model="searchQuery">
+    </form>
     <div v-for="book in filteredBooks">
       <book :book=book></book>
     </div>
@@ -7,36 +10,39 @@
 </template>
 
 <script>
-import Book from './book_row.vue'
+import Book from '../components/book_row.vue'
 import axios from 'axios'
 
 export default {
   components: {
     Book,
   },
-  props: {
-    filterKey: String,
-  },
   data: function () {
     return {
       books: {},
+      searchQuery: '',
     }
   },
   computed: {
     filteredBooks: function() {
-      let filterKey = this.filterKey && this.filterKey.toLowerCase()
+      let searchQuery = this.searchQuery && this.searchQuery.toLowerCase()
       let books = this.books
-      if(filterKey) {
+      if(searchQuery) {
         books = books.filter(
           (row) => {
             return Object.keys(row)
               .filter((key) => key !== 'url' )
-              .some((key) => String(row[key]).toLowerCase().indexOf(filterKey) > -1)
+              .some((key) => String(row[key]).toLowerCase().indexOf(searchQuery) > -1)
           }
         )
       }
       return books
     },
+  },
+  watch: {
+    searchQuery: function(val) {
+      this.filterKey = val
+    }
   },
   created: function() {
     this.init()
