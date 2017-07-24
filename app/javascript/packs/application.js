@@ -1,32 +1,41 @@
 import Vue from 'vue/dist/vue.esm'
-import App from './app.vue'
-import Books from './pages/books.vue'
-import VueRouter from 'vue-router'
-import routes from './routes'
+import App from './App'
+import router from './router'
+
+Vue.config.productionTip = false
 
 document.addEventListener('DOMContentLoaded', () => {
-  Vue.use(VueRouter)
-
-  const router = new VueRouter({
-    mode: 'history',
-    base: __dirname,
-    routes: routes
-  })
-
   new Vue({
+    el: '#app',
     router,
-    render: h => h(Books)
-  }).$mount('#app')
-
-  // const app = new Vue({
-  //   el: '#app',
-  //   data: {
-  //     searchQuery: '',
-  //   },
-  //   components: {
-  //     App,
-  //     Hello,
-  //     Books,
-  //   },
-  // })
+    template: '<App/>',
+    components: { App }
+  })
 })
+//
+// document.addEventListener('DOMContentLoaded', () => {
+//   Vue.use(VueRouter)
+//
+//   const router = new VueRouter({
+//     mode: 'history',
+//     base: __dirname,
+//     routes: routes
+//   })
+//
+//   new Vue({
+//     router,
+//     render: h => h(App),
+//   }).$mount('#app')
+//
+//   // const app = new Vue({
+//   //   el: '#app',
+//   //   data: {
+//   //     searchQuery: '',
+//   //   },
+//   //   components: {
+//   //     App,
+//   //     Hello,
+//   //     Books,
+//   //   },
+//   // })
+// })

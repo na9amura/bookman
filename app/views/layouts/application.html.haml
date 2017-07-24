@@ -6,6 +6,5 @@
     = csrf_meta_tags
     = javascript_pack_tag 'application'
   %body
-    = yield
     #app
-      %books{ ':filter-key': :searchQuery }
+    = yield

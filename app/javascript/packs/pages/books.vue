@@ -4,18 +4,20 @@
       <input value="query" v-model="searchQuery">
     </form>
     <div v-for="book in filteredBooks">
-      <book :book=book></book>
+      <book-row :book=book></book-row>
+      <!-- <p>{{ book.id }}: {{ book.name }}</p> -->
     </div>
   </div>
 </template>
 
 <script>
-import Book from '../components/book_row.vue'
+import BookRow from '../components/BookRow'
 import axios from 'axios'
 
 export default {
+  name: 'books',
   components: {
-    Book,
+    BookRow,
   },
   data: function () {
     return {
