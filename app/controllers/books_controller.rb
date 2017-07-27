@@ -15,6 +15,11 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    respond_to do |format|
+      format.json do
+        @book.to_json
+      end
+    end
   end
 
   # GET /books/new

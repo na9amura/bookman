@@ -5,7 +5,6 @@
     </form>
     <div v-for="book in filteredBooks">
       <book-row :book=book></book-row>
-      <!-- <p>{{ book.id }}: {{ book.name }}</p> -->
     </div>
   </div>
 </template>
