@@ -11,12 +11,6 @@ export default new Router({
     {
       path: '/',
       component: Books,
-      // children: [
-      //   {
-      //     path: ':filterType',
-      //     component: TodoList,
-      //   },
-      // ],
     },
     {
       name: 'book',

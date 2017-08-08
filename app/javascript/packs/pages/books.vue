@@ -1,7 +1,8 @@
 <template>
   <div>
+    <book-form></book-form>
     <form id="search">
-      <input value="query" v-model="searchQuery">
+      <input v-model="filterKey">
     </form>
     <div v-for="book in filteredBooks">
       <book-row :book=book></book-row>
@@ -10,29 +11,31 @@
 </template>
 
 <script>
-import BookRow from '../components/BookRow'
 import axios from 'axios'
+import Books from '../models/global/books'
+import BookForm from '../components/BookForm'
+import BookRow from '../components/BookRow'
 
 export default {
   name: 'books',
   components: {
     BookRow,
+    BookForm,
   },
-  data: function () {
+  data () {
     return {
-      books: {},
-      searchQuery: '',
+      books: Books,
+      filterKey: '',
     }
   },
   computed: {
-    filteredBooks: function() {
-      let searchQuery = this.searchQuery && this.searchQuery.toLowerCase()
-      let books = this.books
+    filteredBooks () {
+      let searchQuery = this.filterKey && this.filterKey.toLowerCase()
+      let books = this.books.state.list
       if(searchQuery) {
         books = books.filter(
           (row) => {
             return Object.keys(row)
-              .filter((key) => key !== 'url' )
               .some((key) => String(row[key]).toLowerCase().indexOf(searchQuery) > -1)
           }
         )
@@ -40,23 +43,18 @@ export default {
       return books
     },
   },
-  watch: {
-    searchQuery: function(val) {
-      this.filterKey = val
-    }
-  },
-  created: function() {
+  created () {
     this.init()
   },
   methods: {
-    init: function() {
+    init () {
       this.loadBooks()
     },
-    loadBooks: function() {
+    loadBooks () {
       var vm = this
       axios.get('/books.json')
         .then(function(response) {
-          vm.books = response.data
+          vm.books.state.list = response.data
         })
     }
   }
