@@ -1,7 +1,24 @@
 <template>
-  <div>
-    <router-link :to="{ name: 'book', params: { id: book.id } }">
-      {{ book.id }}: {{ book.title }} / {{ book.author }} [{{ book.isbn }}]
+  <div class="book-row-root">
+    <router-link
+      :to="{ name: 'book', params: { id: book.id } }"
+      class="book-row">
+      <div class="image">
+
+      </div>
+      <div class="explanation">
+        <h3 class="title">
+          {{ book.title }}
+        </h3>
+        <div class="information">
+          <div class="author">
+            著者：{{ book.author }}
+          </div>
+          <div class="isbn">
+            [{{ book.isbn }}]
+          </div>
+        </div>
+      </div>
     </router-link>
   </div>
 </template>
@@ -14,3 +31,28 @@ export default {
   },
 }
 </script>
+
+<style>
+.book-row-root {
+  padding-bottom: 3%;
+}
+
+.book-row {
+  display: flex;
+  padding: 2%;
+  box-shadow: grey 3px 3px 3px;
+}
+
+.image {
+  flex-shrink: 6;
+  background-color: gray;
+  width: 100%;
+}
+
+.explanation {
+  flex-shrink: 3;
+  width: 100%;
+  padding: 2%;
+}
+
+</style>
