@@ -50,6 +50,18 @@ export default {
           vm.book = response.data
         })
     },
+    checkout: function() {
+      let vm = this
+      axios
+        .post(
+          `/checkouts.json`,
+          {
+            book: { id: vm.id },
+            authenticity_token: document.getElementsByName('csrf-token')[0].content,
+          }
+        )
+        .then((response) => { }) // TODO
+    }
   },
 }
 </script>
