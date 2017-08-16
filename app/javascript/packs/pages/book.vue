@@ -16,18 +16,18 @@
           </div>
         </div>
       </div>
-      <div class="checkouts">
-        <button type="button" v-on:click="checkout"></button>
-      </div>
+      <check-out-form :book=book></check-out-form>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import CheckOutForm from '../components/CheckOutForm'
 
 export default {
   name: 'book',
+  components: { CheckOutForm },
   props: {
     id: Number,
   },
@@ -50,18 +50,6 @@ export default {
           vm.book = response.data
         })
     },
-    checkout: function() {
-      let vm = this
-      axios
-        .post(
-          `/checkouts.json`,
-          {
-            book: { id: vm.id },
-            authenticity_token: document.getElementsByName('csrf-token')[0].content,
-          }
-        )
-        .then((response) => { }) // TODO
-    }
   },
 }
 </script>
