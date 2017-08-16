@@ -11,9 +11,7 @@ class CheckoutsController < ApplicationController
     @check = Check.out_new(book_params[:id], 1)
     respond_to do |format|
       if @check.persisted?
-        format.json do
-          @check.to_json
-        end
+        format.json { render :show, status: :created }
       else
         format.json do
           render json: { error: @check.errors.messages }.to_json
