@@ -14,7 +14,10 @@ class CheckoutsController < ApplicationController
         format.json { render :show, status: :created }
       else
         format.json do
-          render json: { error: @check.errors.messages }.to_json
+          render(
+            status: Rack::Utils.status_code(:forbidden),
+            json: { message: @check.errors.messages }.to_json
+          )
         end
       end
     end

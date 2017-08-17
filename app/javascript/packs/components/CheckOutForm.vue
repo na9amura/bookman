@@ -23,7 +23,13 @@ export default {
             authenticity_token: document.getElementsByName('csrf-token')[0].content,
           }
         )
-        .then((response) => { }) // TODO
+        .then((res) => {
+          // TODO
+          console.log(res)
+        })
+        .catch((e) => {
+          console.log(e.response)
+        })
     },
   },
 }
