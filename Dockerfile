@@ -41,5 +41,6 @@ COPY . $APP_ROOT
 RUN \
   bin/webpack
 
-EXPOSE  9292
-CMD ["rails", "server", "-b", "0.0.0.0", "-p","9292"]
+EXPOSE 9292 8080
+#CMD ["rails", "server", "-b", "0.0.0.0", "-p","9292"]
+CMD foreman start
