@@ -1,6 +1,10 @@
 <template>
   <div>
-    <book-form></book-form>
+    <div>
+      <router-link :to="{ name: 'book_form'}">
+        find new book
+      </router-link>
+    </div>
     <form id="search">
       <input v-model="filterKey">
     </form>
@@ -13,14 +17,12 @@
 <script>
 import axios from 'axios'
 import Books from '../models/global/books'
-import BookForm from '../components/BookForm'
 import BookRow from '../components/BookRow'
 
 export default {
   name: 'books',
   components: {
     BookRow,
-    BookForm,
   },
   data () {
     return {
