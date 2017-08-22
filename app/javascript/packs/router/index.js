@@ -15,7 +15,7 @@ export default new Router({
     },
     {
       name: 'book',
-      path: '/book/:id',
+      path: '/books/:id',
       component: Book,
       props: true,
     },

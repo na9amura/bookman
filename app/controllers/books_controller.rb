@@ -6,9 +6,8 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     respond_to do |format|
-      format.json do
-        @books.to_json
-      end
+      format.json { @book.to_json }
+      format.html { redirect_to controller: :application, action: :index }
     end
   end
 
@@ -16,9 +15,8 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     respond_to do |format|
-      format.json do
-        @book.to_json
-      end
+      format.json { @book.to_json }
+      format.html { redirect_to controller: :application, action: :index }
     end
   end
 
