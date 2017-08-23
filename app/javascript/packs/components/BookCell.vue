@@ -12,6 +12,9 @@
         [{{ book.isbn }}]
       </div>
     </div>
+    <div class="buttons">
+      <slot></slot>
+    </div>
   </div>
 </template>
 

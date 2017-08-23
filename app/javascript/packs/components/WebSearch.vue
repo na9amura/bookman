@@ -2,19 +2,21 @@
   <div>
     <form id="search">
       <label for="book-title">title</label>
-      <input name="book-title" type="text" v-model="book.title">
+      <input name="book-title" type="text" v-model="query.title">
 
       <label for="book-author">author</label>
-      <input name="book-author" type="text" v-model="book.author">
+      <input name="book-author" type="text" v-model="query.author">
 
       <label for="book-isbn">isbn</label>
-      <input name="book-isbn" type="text" v-model="book.isbn">
+      <input name="book-isbn" type="text" v-model="query.isbn">
 
       <button type="button" name="submit-book" v-on:click="find_suggest">find</button>
     </form>
     <div class="suggests">
-      <div class="suggest-item" v-for="book in suggests">
-        <book-cell :book=book></book-cell>
+      <div class="suggest-item" v-for="book in books.state.web_search.results">
+        <book-cell :book=book>
+          <button type="button" v-on:click="select(book)">Select this</button>
+        </book-cell>
       </div>
     </div>
   </div>
@@ -26,7 +28,7 @@ import Books from '../models/global/books'
 import BookCell from '../components/BookCell'
 
 export default {
-  name: 'book-search',
+  name: 'web-search',
   components: {
     BookCell,
   },
@@ -34,22 +36,25 @@ export default {
   },
   data () {
     return {
-      book: {
+      query: {
         title: '',
         author: '',
         isbn: '',
       },
-      suggests: Array,
+      books: Books,
     }
   },
   methods: {
+    select (book) {
+      this.books.state.new_request = book;
+    },
     find_suggest () {
       let vm = this;
       axios
         .get(`https://www.googleapis.com/books/v1/volumes?q=${ vm.queryString() }`)
         .then((res) => {
           let items = res.data.items;
-          vm.suggests = items.map((item) => {
+          vm.books.state.web_search.results = items.map((item) => {
             return {
               title: item.volumeInfo.title,
               author: item.volumeInfo.authors[0],
@@ -59,7 +64,7 @@ export default {
         })
         .catch((e) => {
           console.log(e);
-           vm.suggests = [
+           vm.books.state.web_search.results = [
              {
                id: null,
                title: 'foobar',
@@ -119,9 +124,9 @@ export default {
     },
     queryElements () {
       return {
-        intitle: this.book.title,
-        inauthor: this.book.author,
-        isbn: this.book.isbn,
+        intitle: this.query.title,
+        inauthor: this.query.author,
+        isbn: this.query.isbn,
       }
     },
     queryString () {

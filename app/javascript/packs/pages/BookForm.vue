@@ -1,16 +1,16 @@
 <template>
   <div>
-    <book-search></book-search>
+    <book-web-search></book-web-search>
 
     <form id="register">
       <label for="book-title">title</label>
-      <input name="book-title" type="text" v-model="book.title">
+      <input name="book-title" type="text" v-model="books.state.new_request.title">
 
       <label for="book-author">author</label>
-      <input name="book-author" type="text" v-model="book.author">
+      <input name="book-author" type="text" v-model="books.state.new_request.author">
 
       <label for="book-isbn">isbn</label>
-      <input name="book-isbn" type="text" v-model="book.isbn">
+      <input name="book-isbn" type="text" v-model="books.state.new_request.isbn">
 
       <button type="button" name="submit-book" v-on:click="submitBook">Submit</button>
     </form>
@@ -20,22 +20,18 @@
 <script>
 import axios from 'axios'
 import Books from '../models/global/books'
-import BookSearch from '../components/BookSearch'
+import BookWebSearch from '../pages/BookWebSearch'
 
 export default {
   name: 'book-form',
   components: {
-    BookSearch,
+    BookWebSearch,
   },
   computed: {
   },
   data () {
     return {
-      book: {
-        title: '',
-        author: '',
-        isbn: '',
-      },
+      books: Books,
     }
   },
   methods: {
@@ -45,7 +41,7 @@ export default {
         .post(
           '/books.json',
           {
-            book: this.book,
+            book: this.books.state.new_request,
             authenticity_token: document.getElementsByName('csrf-token')[0].content,
           })
         .then((res) => { vm.loadBooks() })

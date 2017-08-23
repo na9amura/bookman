@@ -1,7 +1,13 @@
-var Books = {
+let Books = {
   debug: true,
   state: {
-    list: []
+    list: [],
+    web_search: {
+      results: [],
+      query: '',
+    },
+    new_request: {}
   },
-}
+};
+
 export default Books
