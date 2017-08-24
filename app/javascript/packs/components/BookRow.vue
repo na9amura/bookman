@@ -32,27 +32,24 @@ export default {
 }
 </script>
 
-<style scoped>
-.book-row-root {
-  padding-bottom: 3%;
-}
+<style scoped lang="sass">
+.book-row-root
+  padding-bottom: 3%
 
-.book-row {
-  display: flex;
-  padding: 2%;
+.book-row
+  display: flex
+  padding: 2%
   box-shadow: 3px 3px 6px 2px #CCCCCC
-}
 
-.image {
-  flex-shrink: 6;
-  background-color: gray;
-  width: 100%;
-}
+.image
+  flex-shrink: 6
+  background-color: gray
+  width: 100vw
+  height: 40vw
 
-.explanation {
-  flex-shrink: 3;
-  width: 100%;
-  padding: 2%;
-}
+.explanation
+  flex-shrink: 3
+  width: 100%
+  padding: 2%
 
 </style>
