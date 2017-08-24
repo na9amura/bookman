@@ -1,19 +1,21 @@
 <template>
   <div class="root">
-    <div class="image"></div>
-    <div class="information">
-      <h5 class="title">
-        {{ book.title }}
-      </h5>
-      <div class="author">
-        著者：{{ book.author }}
+    <div class="frame">
+      <div class="image"></div>
+      <div class="information">
+        <h5 class="title">
+          {{ book.title }}
+        </h5>
+        <div class="author">
+          著者：{{ book.author }}
+        </div>
+        <div class="isbn">
+          [{{ book.isbn }}]
+        </div>
       </div>
-      <div class="isbn">
-        [{{ book.isbn }}]
+      <div class="buttons">
+        <slot></slot>
       </div>
-    </div>
-    <div class="buttons">
-      <slot></slot>
     </div>
   </div>
 </template>
@@ -33,6 +35,10 @@ export default {
   width: 100%
   display: flex
   flex-direction: column
+
+.frame
+  padding: 1em
+  box-shadow: 3px 3px 6px 2px #CCCCCC
 
 .image
   background-color: gray

@@ -40,7 +40,7 @@ export default {
 .book-row {
   display: flex;
   padding: 2%;
-  box-shadow: grey 3px 3px 3px;
+  box-shadow: 3px 3px 6px 2px #CCCCCC
 }
 
 .image {
