@@ -13,9 +13,16 @@
       <button type="button" name="submit-book" v-on:click="find_suggest">find</button>
     </form>
     <div class="suggests">
-      <div class="suggest-item" v-for="book in books.state.web_search.results">
-        <book-cell :book=book>
-          <button type="button" v-on:click="select(book)">Select this</button>
+      <div class="suggest-item" v-for="result in books.state.web_search.results">
+        <book-cell :book=result.book :selected=result.selected>
+          <div v-show="result.selectable">
+            <div v-show="result.selected">
+              <button type="button" v-on:click="reset(result)">Reset this</button>
+            </div>
+            <div v-show="!result.selected">
+              <button type="button" v-on:click="select(result)">Select this</button>
+            </div>
+          </div>
         </book-cell>
       </div>
     </div>
@@ -45,8 +52,17 @@ export default {
     }
   },
   methods: {
-    select (book) {
-      this.books.state.new_request = book;
+    select (result) {
+      result.selected = true;
+      this.books.state.new_request = result.book;
+    },
+    reset (result) {
+      result.selected = false;
+      this.books.state.new_request = {
+        title: '',
+        author: '',
+        isbn: '',
+      };
     },
     find_suggest () {
       let vm = this;
@@ -56,9 +72,13 @@ export default {
           let items = res.data.items;
           vm.books.state.web_search.results = items.map((item) => {
             return {
-              title: item.volumeInfo.title,
-              author: item.volumeInfo.authors[0],
-              isbn: item.volumeInfo.industryIdentifiers[0].identifier
+              selected: false,
+              selectable: true,
+              book: {
+                title: item.volumeInfo.title,
+                author: item.volumeInfo.authors[0],
+                isbn: item.volumeInfo.industryIdentifiers[0].identifier
+              }
             };
           });
         })
@@ -66,58 +86,29 @@ export default {
           console.log(e);
            vm.books.state.web_search.results = [
              {
-               id: null,
-               title: 'foobar',
-               author: 'barfoo',
-               isbn: 'dftguyihojp',
+               selected: false,
+               selectable: true,
+               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
              },
              {
-               id: null,
-               title: 'fizzbazz',
-               author: 'bazzfizz',
-               isbn: 'u6rt7iylu6drtyfuygi',
+               selected: false,
+               selectable: true,
+               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
              },
              {
-               id: null,
-               title: 'foobar',
-               author: 'barfoo',
-               isbn: 'dftguyihojp',
+               selected: false,
+               selectable: true,
+               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
              },
              {
-               id: null,
-               title: 'foobar',
-               author: 'barfoo',
-               isbn: 'dftguyihojp',
+               selected: false,
+               selectable: true,
+               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
              },
              {
-               id: null,
-               title: 'foobar',
-               author: 'barfoo',
-               isbn: 'dftguyihojp',
-             },
-             {
-               id: null,
-               title: 'foobar',
-               author: 'barfoo',
-               isbn: 'dftguyihojp',
-             },
-             {
-               id: null,
-               title: 'foobar',
-               author: 'barfoo',
-               isbn: 'dftguyihojp',
-             },
-             {
-               id: null,
-               title: 'foobar',
-               author: 'barfoo',
-               isbn: 'dftguyihojp',
-             },
-             {
-               id: null,
-               title: 'foobar',
-               author: 'barfoo',
-               isbn: 'dftguyihojp',
+               selected: false,
+               selectable: true,
+               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
              },
            ]
         })

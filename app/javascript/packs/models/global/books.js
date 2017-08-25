@@ -3,7 +3,13 @@ let Books = {
   state: {
     list: [],
     web_search: {
-      results: [],
+      results: [
+        {
+          selected: false,
+          selectable: false,
+          book: {}
+        }
+      ],
       query: '',
     },
     new_request: {}
