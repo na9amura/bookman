@@ -3,15 +3,6 @@
     <book-web-search></book-web-search>
 
     <form id="register">
-      <label for="book-title">title</label>
-      <input name="book-title" type="text" v-model="books.state.new_request.title">
-
-      <label for="book-author">author</label>
-      <input name="book-author" type="text" v-model="books.state.new_request.author">
-
-      <label for="book-isbn">isbn</label>
-      <input name="book-isbn" type="text" v-model="books.state.new_request.isbn">
-
       <button type="button" name="submit-book" v-on:click="submitBook">Submit</button>
     </form>
   </div>
