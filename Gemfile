@@ -8,6 +8,8 @@ end
 gem 'coffee-rails', '~> 4.2'
 gem 'haml-rails'
 gem 'jbuilder', '~> 2.5'
+gem 'jwt'
+gem 'knock'
 gem 'puma', '~> 3.9'
 gem 'rails', '~> 5.1.1'
 gem 'sass-rails', '~> 5.0'
