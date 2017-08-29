@@ -1,19 +1,21 @@
 <template>
-  <div class="root">
-    <div class="frame" v-bind:class="{ frame__selected: selected }">
-      <div class="image"></div>
-      <div class="information">
-        <h5 class="title">
-          {{ book.title }}
-        </h5>
-        <div class="author">
-          著者：{{ book.author }}
-        </div>
-        <div class="isbn">
-          [{{ book.isbn }}]
+  <div class="book-cell--root">
+    <div class="frame book-cell--frame" v-bind:class="{ 'frame__selected': selected }">
+      <div class="book-cell--information">
+        <div class="book-cell--image"></div>
+        <div class="book-cell--text">
+          <h5 class="book-cell--title">
+            {{ book.title }}
+          </h5>
+          <div class="book-cell--author">
+            著者：{{ book.author }}
+          </div>
+          <div class="book-cell--isbn">
+            [{{ book.isbn }}]
+          </div>
         </div>
       </div>
-      <div class="buttons">
+      <div class="book-cell--controls">
         <slot></slot>
       </div>
     </div>
@@ -31,10 +33,12 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
-.root
+<style scoped lang="sass" prefix="book-cell--">
+.book-cell--root
   padding: 0.5em
   width: 100%
+
+.book-cell--frame
   display: flex
   flex-direction: column
 
@@ -45,12 +49,20 @@ export default {
   &__selected
     box-shadow: 2px 2px 10px 4px #6f79cc
 
-.image
-  background-color: gray
-  height: 100%
-  flex: 3
+.book-cell--information
+  display: flex
+  flex-direction: row
 
-.explanation
-  width: 100%
+.book-cell--image
+  background-color: gray
+  flex: 3
+  height: 40vw
+
+.book-cell--text
+  flex: 6
   padding: 2%
+
+.book-cell--controls
+
+
 </style>

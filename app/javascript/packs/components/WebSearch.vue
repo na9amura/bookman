@@ -135,15 +135,5 @@ export default {
 <style scoped lang="sass">
 .suggests
   display: flex
-  flex-direction: row
-  flex-wrap: wrap
-
-@media(max-width: 600px)
-  .suggest-item
-    width: percentage(1 / 3)
-
-@media(min-width: 600px)
-  .suggest-item
-    width: percentage(1 / 4)
-
+  flex-direction: column
 </style>

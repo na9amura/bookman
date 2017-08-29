@@ -9,7 +9,11 @@
       <input v-model="filterKey">
     </form>
     <div v-for="book in filteredBooks">
-      <book-row :book=book></book-row>
+      <book-cell :book=book>
+        <router-link :to="{ name: 'book', params: { id: book.id } }">
+          <button>本の情報を見る</button>
+        </router-link>
+      </book-cell>
     </div>
   </div>
 </template>
@@ -17,12 +21,12 @@
 <script>
 import axios from 'axios'
 import Books from '../models/global/books'
-import BookRow from '../components/BookRow'
+import BookCell from '../components/BookCell'
 
 export default {
   name: 'books',
   components: {
-    BookRow,
+    BookCell,
   },
   data () {
     return {
