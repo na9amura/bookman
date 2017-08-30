@@ -4,6 +4,7 @@ import Books from '../pages/Books'
 import Book from '../pages/Book'
 import BookWebSearch from '../pages/BookWebSearch'
 import BookForm from '../pages/BookForm'
+import Checkouts from '../pages/Checkouts'
 
 Vue.use(Router)
 
@@ -30,5 +31,10 @@ export default new Router({
       path: 'book_form',
       component: BookForm,
     },
+    {
+      name: 'checkouts',
+      path: 'checkouts',
+      component: Checkouts,
+    }
   ]
 })
