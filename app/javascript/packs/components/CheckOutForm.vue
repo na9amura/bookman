@@ -17,7 +17,7 @@ export default {
       let vm = this
       axios
         .post(
-          `/checkouts.json`,
+          '/checkouts.json',
           {
             book: { id: vm.book.id },
             authenticity_token: document.getElementsByName('csrf-token')[0].content,

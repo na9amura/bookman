@@ -18,7 +18,7 @@ class Check < ApplicationRecord
   private
 
     def book_checked_out?
-      if Check.where(book_id: book_id, status: 0).exists?
+      if Check.where(book_id: book_id, status: 0).where.not(id: id).exists?
         @errors.add(:book_id, 'は貸し出し中です')
       end
     end

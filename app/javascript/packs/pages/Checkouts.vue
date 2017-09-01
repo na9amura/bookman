@@ -3,6 +3,7 @@
     <div class="checkout--books">
       <div class="checkout--book" v-for="book in books">
         <book-cell :book=book>
+          <button type="button" v-on:click="checkIn(book)">Check In this book</button>
         </book-cell>
       </div>
     </div>
@@ -25,18 +26,33 @@ export default {
       books: {},
     }
   },
-  created: function() {
+  created () {
     this.init()
   },
   methods: {
-    init: function() {
+    init () {
       this.loadBook()
     },
-    loadBook: function() {
-      let vm = this
-      axios.get(`/checkouts.json`)
+    loadBook () {
+      let vm = this;
+      axios.get('/checkouts.json')
         .then((response) => {
           vm.books = response.data
+        })
+    },
+    checkIn (book) {
+      let vm = this;
+      axios
+        .post(
+          '/checkins.json',
+          {
+            id: book.checking_out.id,
+            authenticity_token: document.getElementsByName('csrf-token')[0].content,
+          }
+        )
+        .then((res) => {
+          console.log(res)
+          console.log(res.data)
         })
     },
   },
