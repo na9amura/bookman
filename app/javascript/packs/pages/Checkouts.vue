@@ -31,9 +31,9 @@ export default {
   },
   methods: {
     init () {
-      this.loadBook()
+      this.loadMyBooks()
     },
-    loadBook () {
+    loadMyBooks () {
       let vm = this;
       axios.get('/checkouts.json')
         .then((response) => {
@@ -51,29 +51,9 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res)
-          console.log(res.data)
+          vm.books = vm.books.filter((book) => !(book.id === res.data.book_id))
         })
     },
   },
 }
 </script>
-
-<style scoped>
-.information {
-  display: flex;
-}
-
-.image {
-  flex-shrink: 6;
-  background-color: gray;
-  width: 100%;
-}
-
-.text {
-  flex-shrink: 3;
-  width: 100%;
-  padding: 2%;
-}
-
-</style>
