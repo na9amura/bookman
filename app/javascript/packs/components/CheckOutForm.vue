@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button type="button" v-on:click="checkout"></button>
+    <button type="button" v-on:click="checkout">Check out</button>
   </div>
 </template>
 

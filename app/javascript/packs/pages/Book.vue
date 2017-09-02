@@ -16,7 +16,12 @@
           </div>
         </div>
       </div>
-      <check-out-form :book=book></check-out-form>
+      <div v-if="book.checking_out">
+        貸出中：{{ book.checking_out.user.name }}
+      </div>
+      <div v-else>
+        <check-out-form :book=book></check-out-form>
+      </div>
     </div>
   </div>
 </template>
