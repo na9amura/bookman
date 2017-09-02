@@ -5,4 +5,5 @@ json.checking_out do
     json.user book.checking_out&.user
   end
 end
+json.shelf book.shelf
 json.url book_url(book, format: :json)

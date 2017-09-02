@@ -15,6 +15,9 @@
           </div>
         </div>
       </div>
+      <div class="book-cell--shelf">
+        保管場所：{{ book.shelf.name }}
+      </div>
       <div class="book-cell--controls">
         <slot></slot>
       </div>
