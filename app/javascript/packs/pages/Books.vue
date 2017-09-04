@@ -12,6 +12,7 @@
     </div>
     <form id="search">
       <input v-model="filterKey">
+      <input v-model="shelfName">
     </form>
     <div v-for="book in filteredBooks">
       <book-cell :book=book>
@@ -37,22 +38,29 @@ export default {
     return {
       books: Books,
       filterKey: '',
+      shelfName: '',
     }
   },
   computed: {
     filteredBooks () {
-      let searchQuery = this.filterKey && this.filterKey.toLowerCase()
+      const searchQuery = this.filterKey && this.filterKey.toLowerCase()
+      const shelfName = this.shelfName && this.shelfName.toLowerCase()
       let books = this.books.state.list
-      if(searchQuery) {
-        books = books.filter(
-          (row) => {
-            return Object.keys(row)
-              .some((key) => String(row[key]).toLowerCase().indexOf(searchQuery) > -1)
-          }
-        )
+
+      if(searchQuery || shelfName) {
+        books = books
+          .filter((row) => {
+              return Object.keys(row)
+                .some((key) => String(row[key]).toLowerCase().indexOf(searchQuery) > -1)
+            })
+          .filter((book) => {
+              return book.shelf.name.toLocaleLowerCase().indexOf(shelfName) > -1
+            })
       }
       return books
     },
+    booksInShelf () {
+    }
   },
   created () {
     this.init()
