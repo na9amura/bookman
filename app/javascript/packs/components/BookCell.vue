@@ -8,18 +8,21 @@
             {{ book.title }}
           </h5>
           <div class="book-cell--author">
-            著者：{{ book.author }}
+            著者: {{ book.author }}
           </div>
           <div class="book-cell--isbn">
-            [{{ book.isbn }}]
+            ISBN: [{{ book.isbn }}]
+          </div>
+          <div v-if="book.shelf">
+            保管場所: {{ book.shelf.name }}
+          </div>
+          <div v-if="book.checking_out">
+            貸出中: {{ book.checking_out.user.name }}
+          </div>
+          <div class="book-cell--controls">
+            <slot></slot>
           </div>
         </div>
-      </div>
-      <div class="book-cell--shelf">
-        保管場所：{{ book.shelf.name }}
-      </div>
-      <div class="book-cell--controls">
-        <slot></slot>
       </div>
     </div>
   </div>

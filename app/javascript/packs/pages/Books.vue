@@ -11,8 +11,15 @@
       </router-link>
     </div>
     <form id="search">
-      <input v-model="filterKey">
-      <input v-model="shelfName">
+      <div>
+        <label for="filterKey">検索ワード</label>
+        <input id="filterKey" v-model="filterKey">
+      </div>
+      <div>
+        <label for="shelfName">本棚</label>
+        <input id="shelfName" v-model="shelfName">
+      </div>
+
     </form>
     <div v-for="book in filteredBooks">
       <book-cell :book=book>
