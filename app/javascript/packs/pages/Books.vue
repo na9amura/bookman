@@ -11,15 +11,16 @@
       </router-link>
     </div>
     <form id="search">
-      <div>
-        <label for="filterKey">検索ワード</label>
-        <input id="filterKey" v-model="filterKey">
-      </div>
-      <div>
-        <label for="shelfName">本棚</label>
-        <input id="shelfName" v-model="shelfName">
-      </div>
-
+      <text-box
+        :id="'filterKey'"
+        :title="'検索ワード'"
+        v-on:changeText="changeText">
+      </text-box>
+      <text-box
+        :id="'shelfName'"
+        :title="'本棚検索ワード'"
+        v-on:changeText="changeText">
+      </text-box>
     </form>
     <div v-for="book in filteredBooks">
       <book-cell :book=book>
@@ -35,11 +36,13 @@
 import axios from 'axios'
 import Books from '../models/global/books'
 import BookCell from '../components/BookCell'
+import TextBox from '../components/form/TextBox'
 
 export default {
   name: 'books',
   components: {
     BookCell,
+    TextBox,
   },
   data () {
     return {
@@ -66,8 +69,6 @@ export default {
       }
       return books
     },
-    booksInShelf () {
-    }
   },
   created () {
     this.init()
@@ -77,12 +78,15 @@ export default {
       this.loadBooks()
     },
     loadBooks () {
-      var vm = this
+      const vm = this
       axios.get('/books.json')
         .then(function(response) {
           vm.books.state.list = response.data
         })
-    }
+    },
+    changeText (id, text) {
+      this[id] = text
+    },
   }
 }
 </script>
