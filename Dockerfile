@@ -32,7 +32,7 @@ RUN \
   chmod uog+r /etc/gemrc && \
   bundle config --global build.nokogiri --use-system-libraries && \
   bundle config --global jobs 4 && \
-  bundle install && \
+  bundle install --path vendor/bundle && \
   rm -rf ~/.gem
 
 COPY . $APP_ROOT
