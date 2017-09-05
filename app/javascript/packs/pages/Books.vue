@@ -14,12 +14,12 @@
       <text-box
         :id="'filterKey'"
         :title="'検索ワード'"
-        v-on:changeText="changeText">
+        :text.sync="filterKey">
       </text-box>
       <text-box
         :id="'shelfName'"
         :title="'本棚検索ワード'"
-        v-on:changeText="changeText">
+        :text.sync="shelfName">
       </text-box>
     </form>
     <div v-for="book in filteredBooks">
@@ -83,9 +83,6 @@ export default {
         .then(function(response) {
           vm.books.state.list = response.data
         })
-    },
-    changeText (id, text) {
-      this[id] = text
     },
   }
 }

@@ -4,9 +4,7 @@
       <label v-bind:id="id">{{ title }}</label>
       <input
         v-bind:id="id"
-        v-model="text"
-        v-on:input="changeText()"
-        />
+        v-model="text"/>
     </div>
   </div>
 </template>
@@ -25,10 +23,10 @@ export default {
       text: '',
     }
   },
-  methods: {
-    changeText () {
-      this.$emit('changeText', this.$props.id, this.$data.text)
+  watch: {
+    text (val) {
+      this.$emit('update:text', val)
     }
-  },
+  }
 }
 </script>
