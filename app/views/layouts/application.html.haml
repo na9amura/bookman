@@ -4,7 +4,8 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title Bookman
     = csrf_meta_tags
-    = stylesheet_pack_tag 'application'
+    = stylesheet_link_tag 'application'
+    -#= stylesheet_pack_tag 'application'
     = javascript_pack_tag 'application'
   %body
     #app

@@ -9,3 +9,4 @@ services:
       - '8080:8080'
     volumes:
       - .:/usr/src/bookman
+      - ./vendor/bundle:/usr/local/bundle
