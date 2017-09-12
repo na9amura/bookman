@@ -1,16 +1,17 @@
 <template>
   <div>
     <form id="search">
-      <text-box
-        :id="'filterKey'"
-        :title="'検索ワード'"
-        :text.sync="filterKey">
-      </text-box>
-      <text-box
-        :id="'shelfName'"
-        :title="'本棚検索ワード'"
-        :text.sync="shelfName">
-      </text-box>
+      <md-input-container>
+        <label>Search</label>
+        <md-input v-model="filterKey">
+        </md-input>
+      </md-input-container>
+
+      <md-input-container>
+        <label>Shelf Name</label>
+        <md-input v-model="shelfName">
+        </md-input>
+      </md-input-container>
     </form>
     <div v-for="book in filteredBooks">
       <book-cell :book=book>

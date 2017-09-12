@@ -2,7 +2,9 @@
   <div class="book-cell--root">
     <div class="frame book-cell--frame" v-bind:class="{ 'frame__selected': selected }">
       <div class="book-cell--information">
-        <div class="book-cell--image"></div>
+        <div class="book-cell--image">
+          <img v-bind:src="book.image" alt="">
+        </div>
         <div class="book-cell--text">
           <h5 class="book-cell--title">
             {{ book.title }}
