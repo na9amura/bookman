@@ -24,8 +24,11 @@
     </form>
     <div v-for="book in filteredBooks">
       <book-cell :book=book>
-        <router-link :to="{ name: 'book', params: { id: book.id } }">
-          <button>本の情報を見る</button>
+        <router-link
+          tag="md-button"
+          class="md-raised md-primary"
+          :to="{ name: 'book', params: { id: book.id } }">
+          本の情報を見る
         </router-link>
       </book-cell>
     </div>
