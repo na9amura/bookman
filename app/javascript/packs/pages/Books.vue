@@ -1,15 +1,5 @@
 <template>
   <div>
-    <div>
-      <router-link :to="{ name: 'book_form'}">
-        find new book
-      </router-link>
-    </div>
-    <div>
-      <router-link :to="{ name: 'checkouts'}">
-        my books
-      </router-link>
-    </div>
     <form id="search">
       <text-box
         :id="'filterKey'"
