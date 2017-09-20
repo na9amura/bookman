@@ -21,6 +21,10 @@
               <md-icon>fingerprint</md-icon>
               <span>{{ book.isbn }}</span>
             </md-list-item>
+            <md-list-item>
+              <md-icon>tags</md-icon>
+              <tag-list :tags=book.tags ></tag-list>
+            </md-list-item>
             <div v-if="book.shelf">
               <md-list-item>
                 <md-icon>view_column</md-icon>
@@ -38,10 +42,14 @@
 <script>
 import axios from 'axios'
 import CheckOutForm from '../components/CheckOutForm'
+import TagList from '../components/TagList'
 
 export default {
   name: 'book',
-  components: { CheckOutForm },
+  components: {
+    CheckOutForm,
+    TagList,
+  },
   props: {
     id: Number,
   },
