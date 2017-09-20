@@ -6,21 +6,33 @@
           <img v-bind:src="book.image" alt="">
         </div>
         <div class="book-cell--text">
-          <h5 class="book-cell--title">
-            {{ book.title }}
-          </h5>
-          <div class="book-cell--author">
-            著者: {{ book.author }}
-          </div>
-          <div class="book-cell--isbn">
-            ISBN: [{{ book.isbn }}]
-          </div>
-          <div v-if="book.shelf">
-            保管場所: {{ book.shelf.name }}
-          </div>
-          <div v-if="book.checking_out">
-            貸出中: {{ book.checking_out.user.name }}
-          </div>
+          <md-list>
+            <md-list-item>
+              <md-icon>book</md-icon>
+              <span>{{ book.title }}</span>
+            </md-list-item>
+            <md-list-item>
+              <md-icon>create</md-icon>
+              <span>{{ book.author }}</span>
+            </md-list-item>
+            <div v-if="book.shelf">
+              <md-list-item>
+                <span>{{ book.shelf.name }} にあります</span>
+              </md-list-item>
+            </div>
+            <div v-if="book.checking_out">
+              <md-list-item>
+                <md-icon>lock</md-icon>
+                <span>現在 {{ book.checking_out.user.name }} が利用中</span>
+              </md-list-item>
+            </div>
+            <div v-else>
+              <md-list-item>
+                <md-icon>lock_open</md-icon>
+                <span>貸出可</span>
+              </md-list-item>
+            </div>
+          </md-list>
           <div class="book-cell--controls">
             <slot></slot>
           </div>

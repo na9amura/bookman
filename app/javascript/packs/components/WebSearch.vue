@@ -28,14 +28,14 @@
           <div v-show="result.selectable">
             <div v-show="result.selected">
               <md-button
-                class="md-raised md-accent"
+                class="md-raised"
                 v-on:click="reset(result)">
                 Selected
               </md-button>
             </div>
             <div v-show="!result.selected">
               <md-button
-                class="md-raised"
+                class="md-raised md-primary"
                 v-on:click="select(result)">
                 Select
               </md-button>
