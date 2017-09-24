@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import BookCell from '../components/BookCell'
 
 export default {
@@ -49,10 +48,7 @@ export default {
       axios
         .post(
           '/checkins.json',
-          {
-            id: book.checking_out.id,
-            authenticity_token: document.getElementsByName('csrf-token')[0].content,
-          }
+          { id: book.checking_out.id }
         )
         .then((res) => {
           vm.books = vm.books.filter((book) => !(book.id === res.data.book_id))

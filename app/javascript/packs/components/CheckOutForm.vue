@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'check-out-form',
   props: {
@@ -34,10 +32,7 @@ export default {
       axios
         .post(
           '/checkouts.json',
-          {
-            book: { id: vm.book.id },
-            authenticity_token: document.getElementsByName('csrf-token')[0].content,
-          }
+          { book: { id: vm.book.id } }
         )
         .then((res) => {
           // TODO

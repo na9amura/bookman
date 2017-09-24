@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Books from '../models/global/books'
 import BookCell from '../components/BookCell'
 import TextBox from '../components/form/TextBox'
