@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import CheckOutForm from '../components/CheckOutForm'
 import TagList from '../components/TagList'
 import TagInput from '../components/TagInput'
@@ -80,10 +79,7 @@ export default {
       axios
         .post(
           `/books/${ vm.id }/tags.json`,
-          {
-            tag: { name: tagName },
-            authenticity_token: document.getElementsByName('csrf-token')[0].content,
-          },
+          { tag: {name: tagName} },
         )
         .then((response) => {
           const tag = response.data.tag
