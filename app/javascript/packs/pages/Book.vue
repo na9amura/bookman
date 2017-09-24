@@ -21,10 +21,6 @@
               <md-icon>fingerprint</md-icon>
               <span>{{ book.isbn }}</span>
             </md-list-item>
-            <md-list-item>
-              <md-icon>tags</md-icon>
-              <tag-list :tags=book.tags ></tag-list>
-            </md-list-item>
             <div v-if="book.shelf">
               <md-list-item>
                 <md-icon>view_column</md-icon>
@@ -35,6 +31,11 @@
           </md-list>
         </div>
       </div>
+      <tag-input
+        :book=book
+        v-on:add-tag="addTag">
+
+      </tag-input>
     </div>
   </div>
 </template>
@@ -43,12 +44,14 @@
 import axios from 'axios'
 import CheckOutForm from '../components/CheckOutForm'
 import TagList from '../components/TagList'
+import TagInput from '../components/TagInput'
 
 export default {
   name: 'book',
   components: {
     CheckOutForm,
     TagList,
+    TagInput,
   },
   props: {
     id: Number,
@@ -70,6 +73,21 @@ export default {
       axios.get(`/books/${ vm.id }.json`)
         .then((response) => {
           vm.book = response.data
+        })
+    },
+    addTag(tagName) {
+      let vm = this
+      axios
+        .post(
+          `/books/${ vm.id }/tags.json`,
+          {
+            tag: { name: tagName },
+            authenticity_token: document.getElementsByName('csrf-token')[0].content,
+          },
+        )
+        .then((response) => {
+          const tag = response.data.tag
+          vm.book.tags.push(tag)
         })
     },
   },
