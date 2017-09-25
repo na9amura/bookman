@@ -33,14 +33,7 @@ export default {
     }
   },
   methods: {
-    submit () {
-      console.log('submit!')
-    },
-    input () {
-      console.log('input!')
-    },
     addTag() {
-      console.log('add tag')
       this.$emit('add-tag', this.newTag)
       this.newTag = ''
     },

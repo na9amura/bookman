@@ -88,7 +88,6 @@ export default {
         })
     },
     removeTag(tagId) {
-      console.log('delete!')
       let vm = this
       axios
         .delete(`/books/${ vm.id }/tags/${ tagId }.json`)
