@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_action :set_book, only: %i(create destroy)
 
   def index
     @tags = Tag.all
@@ -15,8 +16,7 @@ class TagsController < ApplicationController
   end
 
   def create
-    book = Book.find params[:book_id]
-    @tag = book.tags.new(tag_params)
+    @tag = @book.tags.new(tag_params)
     respond_to do |format|
       if @tag.save
         format.json { render :show, status: :created }
@@ -24,7 +24,21 @@ class TagsController < ApplicationController
     end
   end
 
+  def destroy
+    @tag = @book.tags.find_by(id: params[:id])
+    respond_to do |format|
+      if @tag.destroy
+        format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
+        format.json { render :show, status: :accepted }
+      end
+    end
+  end
+
   private
+
+    def set_book
+      @book = Book.find params[:book_id]
+    end
 
     def tag_params
       params.fetch(:tag, {}).permit!

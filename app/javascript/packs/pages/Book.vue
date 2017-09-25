@@ -33,7 +33,8 @@
       </div>
       <tag-input
         :book=book
-        v-on:add-tag="addTag">
+        v-on:add-tag="addTag"
+        v-on:remove-tag="removeTag">
 
       </tag-input>
     </div>
@@ -84,6 +85,16 @@ export default {
         .then((response) => {
           const tag = response.data.tag
           vm.book.tags.push(tag)
+        })
+    },
+    removeTag(tagId) {
+      console.log('delete!')
+      let vm = this
+      axios
+        .delete(`/books/${ vm.id }/tags/${ tagId }.json`)
+        .then((response) => {
+          const removed = response.data.tag
+          vm.book.tags = vm.book.tags.filter((tag) => tag.id !== removed.id)
         })
     },
   },

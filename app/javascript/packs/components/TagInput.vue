@@ -11,12 +11,12 @@
       </md-autocomplete>
     </md-input-container>
 
-    <div v-for="tag in book.tags" :key="tag.id">
-      <md-chip md-deletable
-        @delete="deleteTag(tag)">
-        {{ tag.name }}
-      </md-chip>
-    </div>
+    <md-chip v-for="tag in book.tags"
+      :key="tag.id"
+      md-deletable
+      @delete="removeTag(tag)">
+      {{ tag.name }}
+    </md-chip>
   </div>
 </template>
 
@@ -44,10 +44,8 @@ export default {
       this.$emit('add-tag', this.newTag)
       this.newTag = ''
     },
-    deleteTag(selected) {
-      console.log('delete!')
-      this.tags = this.tags.filter((tag) => tag !== selected)
-      // TODO: tell server
+    removeTag(selected) {
+      this.$emit('remove-tag', selected.id)
     }
   },
 }

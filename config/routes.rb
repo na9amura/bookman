@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :user_tokens, only: %i(create), controller: :user_token
   resources :books do
-    resource :tags
+    resources :tags
   end
   resources :checkouts
   resources :checkins
