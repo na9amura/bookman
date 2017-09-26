@@ -1,5 +1,14 @@
 <template>
-  <div>
+  <div class="tags--root">
+    <div class="tags--current">
+      <md-chip
+        v-for="tag in book.tags"
+        :key="tag.id"
+        md-deletable
+        @delete="removeTag(tag)">
+        {{ tag.name }}
+      </md-chip>
+    </div>
     <md-input-container>
       <label>Tags for {{ book.title }}</label>
       <md-autocomplete
@@ -10,13 +19,6 @@
         v-model="newTag">
       </md-autocomplete>
     </md-input-container>
-
-    <md-chip v-for="tag in book.tags"
-      :key="tag.id"
-      md-deletable
-      @delete="removeTag(tag)">
-      {{ tag.name }}
-    </md-chip>
   </div>
 </template>
 
@@ -43,3 +45,14 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="sass">
+  .tags--root
+    display: flex
+
+  .tags--current
+    width: 100%
+    margin: 4px 0 24px
+    padding-top: 16px
+
+</style>

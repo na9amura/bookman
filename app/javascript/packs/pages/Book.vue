@@ -1,22 +1,28 @@
 <template>
   <div>
     <div v-if="book !== undefined && book.length != 0">
+      <input type="file" accept="image/*;capture=camera">
       <div class="titles">
-        <h2>{{ book.title }}</h2>
-        <h3>著者：{{ book.author }}</h3>
+        <h3>
+          <md-icon>book</md-icon>
+          <span>{{ book.title }}</span>
+        </h3>
+        <h3>
+          <md-icon>create</md-icon>
+          <span>{{ book.author }}</span>
+        </h3>
+      </div>
+      <div class="book--tags">
+        <tag-input
+          :book=book
+          v-on:add-tag="addTag"
+          v-on:remove-tag="removeTag">
+        </tag-input>
       </div>
       <div class="information">
         <div class="image"></div>
         <div class="text">
           <md-list>
-            <md-list-item>
-              <md-icon>book</md-icon>
-              <span>{{ book.title }}</span>
-            </md-list-item>
-            <md-list-item>
-              <md-icon>create</md-icon>
-              <span>{{ book.author }}</span>
-            </md-list-item>
             <md-list-item>
               <md-icon>fingerprint</md-icon>
               <span>{{ book.isbn }}</span>
@@ -31,12 +37,6 @@
           </md-list>
         </div>
       </div>
-      <tag-input
-        :book=book
-        v-on:add-tag="addTag"
-        v-on:remove-tag="removeTag">
-
-      </tag-input>
     </div>
   </div>
 </template>
@@ -100,21 +100,20 @@ export default {
 }
 </script>
 
-<style scoped>
-.information {
-  display: flex;
-}
+<style scoped lang="sass">
+.information
+  display: flex
 
-.image {
-  flex-shrink: 6;
-  background-color: gray;
-  width: 100%;
-}
+.image
+  flex-shrink: 6
+  background-color: gray
+  width: 100%
 
-.text {
-  flex-shrink: 3;
-  width: 100%;
-  padding: 2%;
-}
+.text
+  flex-shrink: 3
+  width: 100%
+  padding: 2%
 
+.book--tags
+  padding-bottom: 1em
 </style>
