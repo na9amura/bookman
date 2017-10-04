@@ -16,21 +16,25 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag = @book.tags.new(tag_params)
+    @tag_assign = @book.try_assign_tag(tag_params[:name])
     respond_to do |format|
-      if @tag.save
+      if @tag_assign.persisted?
+        format.json do
+          render(
+            status: Rack::Utils.status_code(:conflict),
+            json: { message: "tag:'#{ tag_params[:name] }' already assigned" }.to_json
+          )
+        end
+      elsif @tag_assign.save!
         format.json { render :show, status: :created }
       end
     end
   end
 
   def destroy
-    @tag = @book.tags.find_by(id: params[:id])
+    @tag_assign = @book.delete_tag(params[:id])
     respond_to do |format|
-      if @tag.destroy
-        format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
-        format.json { render :show, status: :accepted }
-      end
+      format.json { render :show, status: :accepted }
     end
   end
 
