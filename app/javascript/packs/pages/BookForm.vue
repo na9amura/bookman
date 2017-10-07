@@ -1,22 +1,24 @@
 <template>
   <div>
-    <book-web-search></book-web-search>
+    <web-search></web-search>
 
-    <form id="register">
-      <button type="button" name="submit-book" v-on:click="submitBook">Submit</button>
-    </form>
+    <md-button
+      class="md-raised md-accent"
+      v-on:click="submitBook">
+      Submit
+    </md-button>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Books from '../models/global/books'
-import BookWebSearch from '../pages/BookWebSearch'
+import WebSearch from '../components/WebSearch'
 
 export default {
   name: 'book-form',
   components: {
-    BookWebSearch,
+    WebSearch,
   },
   computed: {
   },

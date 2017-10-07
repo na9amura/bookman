@@ -1,26 +1,25 @@
 <template>
   <div>
-    <header>
-      <h1>Books</h1>
-    </header>
+    <menu-bar></menu-bar>
 
-    <router-view></router-view>
+    <div class="main-content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import MenuBar from "./components/MenuBar.vue";
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    MenuBar,
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped lang="sass">
+.main-content
+  padding: 2em
 </style>

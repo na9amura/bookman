@@ -3,7 +3,11 @@
     <div class="checkout--books">
       <div class="checkout--book" v-for="book in books">
         <book-cell :book=book>
-          <button type="button" v-on:click="checkIn(book)">Check In this book</button>
+          <md-button
+            class="md-raised md-accent"
+            v-on:click="checkIn(book)">
+            Check In
+          </md-button>
         </book-cell>
       </div>
     </div>

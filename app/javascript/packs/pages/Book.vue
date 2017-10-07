@@ -8,19 +8,28 @@
       <div class="information">
         <div class="image"></div>
         <div class="text">
-          <div class="text--title">
-            ISBN
-          </div>
-          <div class="text--content">
-            {{ book.isbn }}
-          </div>
+          <md-list>
+            <md-list-item>
+              <md-icon>book</md-icon>
+              <span>{{ book.title }}</span>
+            </md-list-item>
+            <md-list-item>
+              <md-icon>create</md-icon>
+              <span>{{ book.author }}</span>
+            </md-list-item>
+            <md-list-item>
+              <md-icon>fingerprint</md-icon>
+              <span>{{ book.isbn }}</span>
+            </md-list-item>
+            <div v-if="book.shelf">
+              <md-list-item>
+                <md-icon>view_column</md-icon>
+                <span>{{ book.shelf.name }} にあります</span>
+              </md-list-item>
+            </div>
+            <check-out-form :book=book></check-out-form>
+          </md-list>
         </div>
-      </div>
-      <div v-if="book.checking_out">
-        貸出中：{{ book.checking_out.user.name }}
-      </div>
-      <div v-else>
-        <check-out-form :book=book></check-out-form>
       </div>
     </div>
   </div>

@@ -1,26 +1,44 @@
 <template>
   <div>
     <form id="search">
-      <label for="book-title">title</label>
-      <input name="book-title" type="text" v-model="query.title">
+      <md-input-container>
+        <label>title</label>
+        <md-input v-model="query.title"></md-input>
+      </md-input-container>
 
-      <label for="book-author">author</label>
-      <input name="book-author" type="text" v-model="query.author">
+      <md-input-container>
+        <label>author</label>
+        <md-input v-model="query.author"></md-input>
+      </md-input-container>
 
-      <label for="book-isbn">isbn</label>
-      <input name="book-isbn" type="text" v-model="query.isbn">
+      <md-input-container>
+        <label>isbn</label>
+        <md-input v-model="query.isbn"></md-input>
+      </md-input-container>
 
-      <button type="button" name="submit-book" v-on:click="find_suggest">find</button>
+      <md-button
+        class="md-raised md-primary"
+        v-on:click="find_suggest">
+        検索
+      </md-button>
     </form>
     <div class="suggests">
       <div class="suggest-item" v-for="result in books.state.web_search.results">
         <book-cell :book=result.book :selected=result.selected>
           <div v-show="result.selectable">
             <div v-show="result.selected">
-              <button type="button" v-on:click="reset(result)">Reset this</button>
+              <md-button
+                class="md-raised"
+                v-on:click="reset(result)">
+                Selected
+              </md-button>
             </div>
             <div v-show="!result.selected">
-              <button type="button" v-on:click="select(result)">Select this</button>
+              <md-button
+                class="md-raised md-primary"
+                v-on:click="select(result)">
+                Select
+              </md-button>
             </div>
           </div>
         </book-cell>
