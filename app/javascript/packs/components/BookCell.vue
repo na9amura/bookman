@@ -2,8 +2,8 @@
   <div class="book-cell--root">
     <div class="frame book-cell--frame" v-bind:class="{ 'frame__selected': selected }">
       <div class="book-cell--information">
-        <div class="book-cell--image">
-          <img v-bind:src="book.image" alt="">
+        <div class="book-cell--image-area">
+          <img v-bind:src="book.image_url" class="book-cell--image">
         </div>
         <div class="book-cell--text">
           <md-list>

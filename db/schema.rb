@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927113401) do
+ActiveRecord::Schema.define(version: 20171005124155) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170927113401) do
     t.datetime "updated_at", null: false
     t.integer "shelves_id"
     t.integer "shelf_id"
+    t.text "image_data"
     t.index ["shelf_id"], name: "index_books_on_shelf_id"
     t.index ["shelves_id"], name: "index_books_on_shelves_id"
   end

@@ -21,6 +21,7 @@ RUN \
     postgresql-client \
     sqlite3 \
     yarn \
+    imagemagick \
     --no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
 
