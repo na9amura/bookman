@@ -94,7 +94,8 @@ export default {
               book: {
                 title: item.volumeInfo.title,
                 author: item.volumeInfo.authors[0],
-                isbn: item.volumeInfo.industryIdentifiers[0].identifier
+                isbn: item.volumeInfo.industryIdentifiers[0].identifier,
+                image_url: _.get(item, ['volumeInfo', 'imageLinks', 'thumbnail']),
               }
             };
           });
