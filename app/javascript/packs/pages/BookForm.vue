@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Books from '../models/global/books'
 import WebSearch from '../components/WebSearch'
 
@@ -33,10 +32,8 @@ export default {
       axios
         .post(
           '/books.json',
-          {
-            book: this.books.state.new_request,
-            authenticity_token: document.getElementsByName('csrf-token')[0].content,
-          })
+          { book: this.books.state.new_request }
+        )
         .then((res) => { vm.loadBooks() })
     },
     loadBooks () {

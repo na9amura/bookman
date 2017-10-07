@@ -1,22 +1,28 @@
 <template>
   <div>
     <div v-if="book !== undefined && book.length != 0">
+      <input type="file" accept="image/*;capture=camera">
       <div class="titles">
-        <h2>{{ book.title }}</h2>
-        <h3>著者：{{ book.author }}</h3>
+        <h3>
+          <md-icon>book</md-icon>
+          <span>{{ book.title }}</span>
+        </h3>
+        <h3>
+          <md-icon>create</md-icon>
+          <span>{{ book.author }}</span>
+        </h3>
+      </div>
+      <div class="book--tags">
+        <tag-input
+          :book=book
+          v-on:add-tag="addTag"
+          v-on:remove-tag="removeTag">
+        </tag-input>
       </div>
       <div class="information">
         <div class="image"></div>
         <div class="text">
           <md-list>
-            <md-list-item>
-              <md-icon>book</md-icon>
-              <span>{{ book.title }}</span>
-            </md-list-item>
-            <md-list-item>
-              <md-icon>create</md-icon>
-              <span>{{ book.author }}</span>
-            </md-list-item>
             <md-list-item>
               <md-icon>fingerprint</md-icon>
               <span>{{ book.isbn }}</span>
@@ -36,12 +42,17 @@
 </template>
 
 <script>
-import axios from 'axios'
 import CheckOutForm from '../components/CheckOutForm'
+import TagList from '../components/TagList'
+import TagInput from '../components/TagInput'
 
 export default {
   name: 'book',
-  components: { CheckOutForm },
+  components: {
+    CheckOutForm,
+    TagList,
+    TagInput,
+  },
   props: {
     id: Number,
   },
@@ -64,25 +75,45 @@ export default {
           vm.book = response.data
         })
     },
+    addTag(tagName) {
+      let vm = this
+      axios
+        .post(
+          `/books/${ vm.id }/tags.json`,
+          { tag: {name: tagName} },
+        )
+        .then((response) => {
+          const tag = response.data.tag
+          vm.book.tags.push(tag)
+        })
+    },
+    removeTag(tagId) {
+      let vm = this
+      axios
+        .delete(`/books/${ vm.id }/tags/${ tagId }.json`)
+        .then((response) => {
+          const removed = response.data.tag
+          vm.book.tags = vm.book.tags.filter((tag) => tag.id !== removed.id)
+        })
+    },
   },
 }
 </script>
 
-<style scoped>
-.information {
-  display: flex;
-}
+<style scoped lang="sass">
+.information
+  display: flex
 
-.image {
-  flex-shrink: 6;
-  background-color: gray;
-  width: 100%;
-}
+.image
+  flex-shrink: 6
+  background-color: gray
+  width: 100%
 
-.text {
-  flex-shrink: 3;
-  width: 100%;
-  padding: 2%;
-}
+.text
+  flex-shrink: 3
+  width: 100%
+  padding: 2%
 
+.book--tags
+  padding-bottom: 1em
 </style>
