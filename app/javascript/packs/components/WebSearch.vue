@@ -102,33 +102,22 @@ export default {
         })
         .catch((e) => {
           console.log(e);
-           vm.books.state.web_search.results = [
-             {
-               selected: false,
-               selectable: true,
-               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
-             },
-             {
-               selected: false,
-               selectable: true,
-               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
-             },
-             {
-               selected: false,
-               selectable: true,
-               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
-             },
-             {
-               selected: false,
-               selectable: true,
-               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
-             },
-             {
-               selected: false,
-               selectable: true,
-               book: { id: null, title: 'foobar', author: 'fizz bazz', isbn: '123456789678'},
-             },
-           ]
+          let mockResults = []
+          for(let i = 0; i < 10; i++) {
+            mockResults.push(
+              {
+                selected: false,
+                selectable: true,
+                book: { id: null,
+                  title: i,
+                  author: 'fizz bazz',
+                  isbn: '123456789678',
+                  image_url: '/lgtm_go.png',
+                },
+              },
+            )
+            vm.books.state.web_search.results = mockResults
+          }
         })
     },
     queryElements () {

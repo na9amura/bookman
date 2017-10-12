@@ -33,7 +33,7 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(book_params)
+    @book = Book.import(book_params)
 
     respond_to do |format|
       if @book.save
@@ -78,6 +78,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.fetch(:book, {}).permit!
+      params.fetch(:book, {}).permit(:title, :author, :isbn, :image_url)
     end
 end
