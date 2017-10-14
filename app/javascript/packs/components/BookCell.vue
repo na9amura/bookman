@@ -8,29 +8,25 @@
         <div class="book-cell--text">
           <md-list>
             <md-list-item>
-              <md-icon>book</md-icon>
-              <span>{{ book.title }}</span>
+              <h2>{{ book.title }}</h2>
             </md-list-item>
             <md-list-item>
               <md-icon>create</md-icon>
               <span>{{ book.author }}</span>
             </md-list-item>
-            <div v-if="book.shelf">
-              <md-list-item>
-                <span>{{ book.shelf.name }} にあります</span>
-              </md-list-item>
-            </div>
-            <div v-if="book.checking_out">
-              <md-list-item>
-                <md-icon>lock</md-icon>
-                <span>現在 {{ book.checking_out.user.name }} が利用中</span>
-              </md-list-item>
-            </div>
-            <div v-else>
-              <md-list-item>
-                <md-icon>lock_open</md-icon>
-                <span>貸出可</span>
-              </md-list-item>
+            <div v-show="book.id">
+              <div v-if="book.checking_out">
+                <md-list-item>
+                  <md-icon>lock</md-icon>
+                  <span>貸出中</span>
+                </md-list-item>
+              </div>
+              <div v-else>
+                <md-list-item>
+                  <md-icon>lock_open</md-icon>
+                  <span>貸出可</span>
+                </md-list-item>
+              </div>
             </div>
           </md-list>
           <div class="book-cell--controls">
@@ -73,14 +69,12 @@ export default {
   display: flex
   flex-direction: row
 
-.book-cell--image
-  background-color: gray
+.book-cell--image-area
   flex: 3
-  height: 40vw
+  width: 30%
 
 .book-cell--text
-  flex: 6
-  padding: 2%
+  flex: 9
 
 .book-cell--controls
 
