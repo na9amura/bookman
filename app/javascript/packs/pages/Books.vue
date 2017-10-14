@@ -14,14 +14,11 @@
       </md-input-container>
     </form>
     <div v-for="book in filteredBooks">
-      <book-cell :book=book>
-        <router-link
-          tag="md-button"
-          class="md-raised md-primary"
-          :to="{ name: 'book', params: { id: book.id } }">
-          本の情報を見る
-        </router-link>
-      </book-cell>
+      <router-link
+        class="books-row--link"
+        :to="{ name: 'book', params: { id: book.id } }">
+        <book-cell :book=book />
+      </router-link>
     </div>
   </div>
 </template>
