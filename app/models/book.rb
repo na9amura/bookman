@@ -1,6 +1,6 @@
 class Book < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
-  belongs_to :shelf
+  belongs_to :shelf, optional: true
   has_many :tag_assigns
   has_many :tags, through: :tag_assigns
   has_many :checks

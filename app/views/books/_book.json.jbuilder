@@ -9,5 +9,5 @@ end
 json.tags do
   json.merge! book.tags
 end
-json.shelf book.shelf
+json.shelf book&.shelf
 json.url book_url(book, format: :json)
