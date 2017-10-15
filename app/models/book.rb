@@ -8,7 +8,7 @@ class Book < ApplicationRecord
 
   def self.import(attributes)
     book = Book.new(attributes.reject { |k| k.to_sym == :image_url })
-    book.image_data = File.open(attributes[:image_url])
+    book.image = open(attributes[:image_url])
     book
   end
 
