@@ -35,8 +35,7 @@ export default {
           { book: { id: vm.book.id } }
         )
         .then((res) => {
-          // TODO
-          console.log(res)
+          this.$emit('checkout', res.data.book_id)
         })
         .catch((e) => {
           console.log(e.response)
