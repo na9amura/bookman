@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div>
+      <md-button @click="openDialog()">
+        Open
+      </md-button>
+    </div>
     <form id="search">
       <md-input-container>
         <label>Search</label>
@@ -64,6 +69,9 @@ export default {
     this.init()
   },
   methods: {
+    openDialog() {
+      this.refs['dialog1'].open()
+    },
     init () {
       this.loadBooks()
     },
