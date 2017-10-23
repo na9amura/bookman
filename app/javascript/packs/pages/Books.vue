@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      <my-dialog ref="dialog1" :title="'test'" :message="'dialooogue'"></my-dialog>
       <md-button @click="openDialog()">
         Open
       </md-button>
@@ -32,12 +33,14 @@
 import Books from '../models/global/books'
 import BookCell from '../components/BookCell'
 import TextBox from '../components/form/TextBox'
+import MyDialog from '../components/Dialog'
 
 export default {
   name: 'books',
   components: {
     BookCell,
     TextBox,
+    MyDialog,
   },
   data () {
     return {
@@ -70,7 +73,7 @@ export default {
   },
   methods: {
     openDialog() {
-      this.refs['dialog1'].open()
+      this.$refs['dialog1'].open()
     },
     init () {
       this.loadBooks()
