@@ -16,6 +16,7 @@
     <div v-for="book in filteredBooks">
       <router-link
         class="books-row--link"
+        tag="div"
         :to="{ name: 'book', params: { id: book.id } }">
         <book-cell :book=book>
           <md-button
