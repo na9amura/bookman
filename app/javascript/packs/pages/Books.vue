@@ -20,7 +20,8 @@
         <book-cell :book=book>
           <md-button
             class="md-raised md-primary"
-            @click="selectShelf(book)">
+            @click.stop="selectShelf(book)"
+            @click.right="selectShelf(book)">
             本棚変更
           </md-button>
           <md-menu :ref="shelfMenuRef(book)">
