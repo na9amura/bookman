@@ -1,23 +1,29 @@
-FROM ruby:2.4.1-alpine
+FROM ruby:2.4.1
 
 ENV APP_ROOT /usr/src/bookman
 
 WORKDIR $APP_ROOT
 
+# for yarn
+RUN apt-get update
+RUN apt-get install apt-transport-https
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+# for node
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+
 RUN \
-  apk update && \
-  apk upgrade && \
-  apk add --update \
-    build-base \
-    libxml2-dev \
-    libxslt-dev \
+  apt-get update && \
+  apt-get install -y \
     nodejs \
     mysql-client \
     postgresql-client \
-    sqlite-dev \
-    tzdata \
-    && \
-  rm -rf /var/cache/apk/*
+    sqlite3 \
+    yarn \
+    imagemagick \
+    --no-install-recommends && \
+  rm -rf /var/lib/apt/lists/*
 
 COPY Gemfile $APP_ROOT
 COPY Gemfile.lock $APP_ROOT
@@ -31,7 +37,10 @@ RUN \
   bundle install && \
   rm -rf ~/.gem
 
+RUN gem install foreman
+
 COPY . $APP_ROOT
 
-EXPOSE  9292
-CMD ["rails", "server", "-b", "0.0.0.0", "-p","9292"]
+EXPOSE 9292 8080
+#CMD ["rails", "server", "-b", "0.0.0.0", "-p","9292"]
+CMD foreman start

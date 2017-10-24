@@ -1,3 +1,12 @@
 Rails.application.routes.draw do
-  resources :books
+  root to: 'application#index'
+
+  get 'login', to: 'application#login'
+
+  resources :user_tokens, only: %i(create), controller: :user_token
+  resources :books do
+    resources :tags
+  end
+  resources :checkouts
+  resources :checkins
 end
