@@ -11,8 +11,8 @@
               <h2>{{ book.title }}</h2>
             </md-list-item>
             <md-list-item>
-              <md-icon>create</md-icon>
-              <span>{{ book.author }}</span>
+              <span>著者：{{ book.author }}</span>
+              <span>出版社：{{ book.publisher_name }}</span>
             </md-list-item>
             <div v-show="book.id">
               <div v-if="book.checking_out">

@@ -13,8 +13,8 @@
               <span>{{ book.title }}</span>
             </h3>
             <h3>
-              <md-icon>create</md-icon>
-              <span>{{ book.author }}</span>
+              <span>著者：{{ book.author }}</span>
+              <span>出版社：{{ book.publisher_name }}</span>
             </h3>
           </div>
           <div class="book--tags">
