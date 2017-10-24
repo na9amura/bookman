@@ -17,7 +17,23 @@
       <router-link
         class="books-row--link"
         :to="{ name: 'book', params: { id: book.id } }">
-        <book-cell :book=book />
+        <book-cell :book=book>
+          <md-button
+            class="md-raised md-primary"
+            @click="selectShelf(book)">
+            本棚変更
+          </md-button>
+          <md-menu :ref="shelfMenuRef(book)">
+            <span md-menu-trigger></span>
+            <md-menu-content>
+              <md-menu-item v-if="shelves.length"
+                v-for="shelf in shelves"
+                :key="shelf.id">
+                {{ shelf.name }}
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </book-cell>
       </router-link>
     </div>
   </div>
@@ -39,6 +55,10 @@ export default {
       books: Books,
       filterKey: '',
       shelfName: '',
+      shelves: [
+        { name: 'Main Shelf', id: 1 },
+        { name: 'Sub Shelf', id: 2 },
+      ]
     }
   },
   computed: {
@@ -73,6 +93,13 @@ export default {
         .then(function(response) {
           vm.books.state.list = response.data
         })
+    },
+    shelfMenuRef(book) {
+      return `shelfMenu${ book.id }`
+    },
+    selectShelf(book) {
+      console.log(`change shelf of ${ book }`)
+      this.$refs[this.shelfMenuRef(book)][0].toggle()
     },
   }
 }
