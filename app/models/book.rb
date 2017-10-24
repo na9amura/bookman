@@ -1,6 +1,6 @@
 class Book < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
-  belongs_to :shelf
+  belongs_to :shelf, optional: true
   has_many :tag_assigns
   has_many :tags, through: :tag_assigns
   has_many :checks
@@ -8,7 +8,7 @@ class Book < ApplicationRecord
 
   def self.import(attributes)
     book = Book.new(attributes.reject { |k| k.to_sym == :image_url })
-    book.image_data = File.open(attributes[:image_url])
+    book.image = open(attributes[:image_url])
     book
   end
 
