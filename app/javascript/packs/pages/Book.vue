@@ -35,7 +35,10 @@
                 <span>{{ book.shelf.name }} にあります</span>
               </md-list-item>
             </div>
-            <check-out-form :book=book></check-out-form>
+            <check-out-form
+              :book=book
+              @checkout="checkout">
+            </check-out-form>
           </md-list>
         </div>
       </div>
@@ -67,10 +70,10 @@ export default {
     this.init()
   },
   methods: {
-    init: function() {
+    init () {
       this.loadBook()
     },
-    loadBook: function() {
+    loadBook () {
       let vm = this
       axios.get(`/books/${ vm.id }.json`)
         .then((response) => {
@@ -98,6 +101,9 @@ export default {
           vm.book.tags = vm.book.tags.filter((tag) => tag.id !== removed.id)
         })
     },
+    checkout() {
+      this.loadBook()
+    }
   },
 }
 </script>
