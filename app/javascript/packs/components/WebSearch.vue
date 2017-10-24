@@ -108,11 +108,12 @@ export default {
               {
                 selected: false,
                 selectable: true,
-                book: { id: null,
+                book: {
                   title: i,
                   author: 'fizz bazz',
+                  publisher_name: 'foobar enterprise',
                   isbn: '123456789678',
-                  image_url: '/lgtm_go.png',
+                  image_url: 'http://localhost:9292/lgtm_go.png',
                 },
               },
             )
