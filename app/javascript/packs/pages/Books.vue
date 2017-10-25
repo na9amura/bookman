@@ -31,7 +31,9 @@
               <md-menu-item v-if="shelves.length"
                 v-for="shelf in shelves"
                 @click="assignShelf(index, book, shelf)"
-                :key="shelf.id">
+                :key="shelf.id"
+                :disabled="!selectableShelf(book, shelf)">
+                {{ selectableShelf(book, shelf) ? '' : '* ' }}
                 {{ shelf.name }}
               </md-menu-item>
             </md-menu-content>
@@ -119,6 +121,9 @@ export default {
         .then((response) => {
           vm.books.state.list.splice(index, 1, response.data)
         })
+    },
+    selectableShelf(book, newShelf) {
+      return book.shelf_id !== newShelf.id
     },
   }
 }
