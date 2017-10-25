@@ -111,7 +111,11 @@ export default {
     },
     assignShelf(book, shelf) {
       console.log(`move ${ book.title } to ${ shelf.name }`)
-
+      axios.patch(
+          `/books/${ book.id }.json`,
+          { book: { shelf_id: shelf.id } }
+        )
+        .then((response) => { console.log(response) })
     },
   }
 }
