@@ -1,4 +1,5 @@
 import Query from './GoogleBooksQuery'
+import Book from '../../models/Book'
 
 export default class {
 
@@ -29,12 +30,12 @@ export default class {
   }
 
   _formatResult(result) {
-    return {
+    return new Book({
       title: result.volumeInfo.title,
       author: result.volumeInfo.authors[0],
       publisher_name: result.volumeInfo.publisher,
       isbn: result.volumeInfo.industryIdentifiers[0].identifier,
       image_url: _.get(result, ['volumeInfo', 'imageLinks', 'thumbnail']),
-    };
+    })
   }
 }
