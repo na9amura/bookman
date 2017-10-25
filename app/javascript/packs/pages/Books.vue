@@ -89,6 +89,7 @@ export default {
   methods: {
     init () {
       this.loadBooks()
+      this.loadShelves()
     },
     loadBooks () {
       const vm = this
@@ -96,6 +97,11 @@ export default {
         .then(function(response) {
           vm.books.state.list = response.data
         })
+    },
+    loadShelves() {
+      const vm = this
+      axios.get('/shelves.json')
+        .then((response) => { this.shelves = response.data })
     },
     shelfMenuRef(book) {
       return `shelfMenu${ book.id }`
