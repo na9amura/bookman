@@ -21,8 +21,8 @@
         <book-cell :book=book>
           <md-button
             class="md-raised md-primary"
-            @click.stop="selectShelf(book)"
-            @click.right="selectShelf(book)">
+            @click.stop="showShelves(book)"
+            @click.right="showShelves(book)">
             本棚変更
           </md-button>
           <md-menu :ref="shelfMenuRef(book)">
@@ -30,7 +30,8 @@
             <md-menu-content>
               <md-menu-item v-if="shelves.length"
                 v-for="shelf in shelves"
-                :key="shelf.id">
+                :key="shelf.id"
+                @click="assignShelf(book, shelf)">
                 {{ shelf.name }}
               </md-menu-item>
             </md-menu-content>
@@ -99,9 +100,12 @@ export default {
     shelfMenuRef(book) {
       return `shelfMenu${ book.id }`
     },
-    selectShelf(book) {
-      console.log(`change shelf of ${ book }`)
+    showShelves(book) {
       this.$refs[this.shelfMenuRef(book)][0].toggle()
+    },
+    assignShelf(book, shelf) {
+      console.log(`move ${ book.title } to ${ shelf.name }`)
+
     },
   }
 }
