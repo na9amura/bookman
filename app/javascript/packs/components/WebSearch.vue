@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import Book from '../models/Book'
 import Books from '../models/global/books'
 import BookCell from '../components/BookCell'
 import GoogleBooksDriver from '../infra/WebSearches/GoogleBooks'
@@ -77,24 +78,21 @@ export default {
     },
     reset (result) {
       result.selected = false;
-      this.books.state.new_request = {
-        title: '',
-        author: '',
-        isbn: '',
-      };
+      this.books.state.new_request = new Book();
     },
     find_suggest () {
       const webSearch = new WebSearch(new GoogleBooksDriver())
-      const result = webSearch.find(this.query.title, this.query.author, this.query.isbn)
-      result.then((books) => {
-        this.books.state.web_search.results = books.map((book) => {
-          return {
-            selected: false,
-            selectable: true,
-            book: book,
-          }
+      webSearch
+        .find(this.query.title, this.query.author, this.query.isbn)
+        .then((books) => {
+          this.books.state.web_search.results = books.map((book) => {
+            return {
+              selected: false,
+              selectable: true,
+              book: book,
+            }
+          })
         })
-      })
     }
   },
 }
