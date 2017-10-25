@@ -13,7 +13,7 @@
         </md-input>
       </md-input-container>
     </form>
-    <div v-for="book in filteredBooks">
+    <div v-for="(book, index) in filteredBooks">
       <router-link
         class="books-row--link"
         tag="div"
@@ -30,8 +30,8 @@
             <md-menu-content>
               <md-menu-item v-if="shelves.length"
                 v-for="shelf in shelves"
-                :key="shelf.id"
-                @click="assignShelf(book, shelf)">
+                @click="assignShelf(index, book, shelf)"
+                :key="shelf.id">
                 {{ shelf.name }}
               </md-menu-item>
             </md-menu-content>
@@ -109,13 +109,16 @@ export default {
     showShelves(book) {
       this.$refs[this.shelfMenuRef(book)][0].toggle()
     },
-    assignShelf(book, shelf) {
-      console.log(`move ${ book.title } to ${ shelf.name }`)
-      axios.patch(
+    assignShelf(index, book, shelf) {
+      const vm = this
+      axios
+        .patch(
           `/books/${ book.id }.json`,
           { book: { shelf_id: shelf.id } }
         )
-        .then((response) => { console.log(response) })
+        .then((response) => {
+          vm.books.state.list.splice(index, 1, response.data)
+        })
     },
   }
 }
