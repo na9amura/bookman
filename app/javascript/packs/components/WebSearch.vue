@@ -50,6 +50,8 @@
 <script>
 import Books from '../models/global/books'
 import BookCell from '../components/BookCell'
+import GoogleBooksDriver from '../infra/WebSearches/GoogleBooks'
+import WebSearch from '../infra/WebSearch'
 
 export default {
   name: 'web-search',
@@ -82,61 +84,19 @@ export default {
       };
     },
     find_suggest () {
-      let vm = this;
-      axios
-        .get(`https://www.googleapis.com/books/v1/volumes?q=${ vm.queryString() }`)
-        .then((res) => {
-          let items = res.data.items;
-          vm.books.state.web_search.results = items.map((item) => {
-            return {
-              selected: false,
-              selectable: true,
-              book: {
-                title: item.volumeInfo.title,
-                author: item.volumeInfo.authors[0],
-                isbn: item.volumeInfo.industryIdentifiers[0].identifier,
-                image_url: _.get(item, ['volumeInfo', 'imageLinks', 'thumbnail']),
-              }
-            };
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-          let mockResults = []
-          for(let i = 0; i < 10; i++) {
-            mockResults.push(
-              {
-                selected: false,
-                selectable: true,
-                book: {
-                  title: i,
-                  author: 'fizz bazz',
-                  publisher_name: 'foobar enterprise',
-                  isbn: '123456789678',
-                  image_url: 'http://localhost:9292/lgtm_go.png',
-                },
-              },
-            )
-            vm.books.state.web_search.results = mockResults
+      const webSearch = new WebSearch(new GoogleBooksDriver())
+      const result = webSearch.find(this.query.title, this.query.author, this.query.isbn)
+      result.then((books) => {
+        this.books.state.web_search.results = books.map((book) => {
+          return {
+            selected: false,
+            selectable: true,
+            book: book,
           }
         })
-    },
-    queryElements () {
-      return {
-        intitle: this.query.title,
-        inauthor: this.query.author,
-        isbn: this.query.isbn,
-      }
-    },
-    queryString () {
-      let queries = this.queryElements();
-      return Object.keys(queries)
-        .map(function(k) { return [k, this[k]] }, queries)
-        .filter((e) => e[1])
-        .map((e) => `${ e[0] }:${ e[1] }`)
-        .join('+');
-    },
-  }
+      })
+    }
+  },
 }
 </script>
 
