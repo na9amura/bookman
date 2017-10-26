@@ -83,7 +83,6 @@ export default {
         })
     },
     loadShelves() {
-      const vm = this
       axios.get('/shelves.json')
         .then((response) => { this.shelves = response.data })
     },
