@@ -12,7 +12,7 @@
         <md-menu-item @click="editBook">登録内容編集</md-menu-item>
         <md-menu-item @click="deleteBook">本を削除</md-menu-item>
         <md-menu-item @click="showMenu('shelfMenu')">本棚変更</md-menu-item>
-        <md-menu ref="shelfMenu">
+        <md-menu ref="shelfMenu" md-offset-x="176" md-offset-y="-36">
           <span md-menu-trigger></span>
           <md-menu-content>
             <md-menu-item
