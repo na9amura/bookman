@@ -39,9 +39,6 @@
       }
     },
     methods: {
-      shelfMenuRef() {
-        return `shelfMenu${ this.book.id }`
-      },
       showShelves() {
         this.$refs.menu.toggle()
       },
