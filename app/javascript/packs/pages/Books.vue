@@ -13,11 +13,32 @@
         </md-input>
       </md-input-container>
     </form>
-    <div v-for="book in filteredBooks">
+    <div v-for="(book, index) in filteredBooks">
       <router-link
         class="books-row--link"
+        tag="div"
         :to="{ name: 'book', params: { id: book.id } }">
-        <book-cell :book=book />
+        <book-cell :book=book>
+          <md-button
+            class="md-raised md-primary"
+            @click.stop="showShelves(book)"
+            @click.right="showShelves(book)">
+            本棚変更
+          </md-button>
+          <md-menu :ref="shelfMenuRef(book)">
+            <span md-menu-trigger></span>
+            <md-menu-content>
+              <md-menu-item v-if="shelves.length"
+                v-for="shelf in shelves"
+                @click="assignShelf(index, book, shelf)"
+                :key="shelf.id"
+                :disabled="!selectableShelf(book, shelf)">
+                {{ selectableShelf(book, shelf) ? '' : '* ' }}
+                {{ shelf.name }}
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </book-cell>
       </router-link>
     </div>
   </div>
@@ -39,6 +60,10 @@ export default {
       books: Books,
       filterKey: '',
       shelfName: '',
+      shelves: [
+        { name: 'Main Shelf', id: 1 },
+        { name: 'Sub Shelf', id: 2 },
+      ]
     }
   },
   computed: {
@@ -66,6 +91,7 @@ export default {
   methods: {
     init () {
       this.loadBooks()
+      this.loadShelves()
     },
     loadBooks () {
       const vm = this
@@ -73,6 +99,31 @@ export default {
         .then(function(response) {
           vm.books.state.list = response.data
         })
+    },
+    loadShelves() {
+      const vm = this
+      axios.get('/shelves.json')
+        .then((response) => { this.shelves = response.data })
+    },
+    shelfMenuRef(book) {
+      return `shelfMenu${ book.id }`
+    },
+    showShelves(book) {
+      this.$refs[this.shelfMenuRef(book)][0].toggle()
+    },
+    assignShelf(index, book, shelf) {
+      const vm = this
+      axios
+        .patch(
+          `/books/${ book.id }.json`,
+          { book: { shelf_id: shelf.id } }
+        )
+        .then((response) => {
+          vm.books.state.list.splice(index, 1, response.data)
+        })
+    },
+    selectableShelf(book, newShelf) {
+      return book.shelf_id !== newShelf.id
     },
   }
 }

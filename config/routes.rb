@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   end
   resources :checkouts
   resources :checkins
+  resources :shelves, only: %i(index)
 end
