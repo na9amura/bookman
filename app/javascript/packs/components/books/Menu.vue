@@ -6,17 +6,14 @@
       @click.right="showMenu('topMenu')">
       Menu
     </md-button>
-    <md-menu ref="topMenu">
+    <md-menu ref="topMenu" :md-close-on-select="false">
       <span md-menu-trigger></span>
       <md-menu-content>
         <md-menu-item @click="editBook">登録内容編集</md-menu-item>
         <md-menu-item @click="deleteBook">本を削除</md-menu-item>
+        <md-menu-item @click="showMenu('shelfMenu')">本棚変更</md-menu-item>
         <md-menu ref="shelfMenu">
-          <md-menu-item
-            md-menu-trigger
-            @click.stop="showMenu('shelfMenu')">
-            本棚変更
-          </md-menu-item>
+          <span md-menu-trigger></span>
           <md-menu-content>
             <md-menu-item
               :disabled="true">
