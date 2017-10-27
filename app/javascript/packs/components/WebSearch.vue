@@ -3,17 +3,23 @@
     <form id="search">
       <md-input-container>
         <label>title</label>
-        <md-input v-model="query.title"></md-input>
+        <md-input
+          v-model="query.title"
+          @keydown.enter.native="findSuggest" />
       </md-input-container>
 
       <md-input-container>
         <label>author</label>
-        <md-input v-model="query.author"></md-input>
+        <md-input
+          v-model="query.author"
+          @keydown.enter.native="findSuggest" />
       </md-input-container>
 
       <md-input-container>
         <label>isbn</label>
-        <md-input v-model="query.isbn"></md-input>
+        <md-input
+          v-model="query.isbn"
+          @keydown.enter.native="findSuggest" />
       </md-input-container>
 
       <md-button
