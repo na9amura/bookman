@@ -57,12 +57,12 @@ export default {
       if(searchQuery || shelfName) {
         books = books
           .filter((row) => {
-              return Object.keys(row)
-                .some((key) => String(row[key]).toLowerCase().indexOf(searchQuery) > -1)
-            })
+            return Object.keys(row)
+              .some((key) => String(row[key]).toLowerCase().indexOf(searchQuery) > -1)
+          })
           .filter((book) => {
-              return book.shelf.name.toLocaleLowerCase().indexOf(shelfName) > -1
-            })
+            return book.shelf.name.toLocaleLowerCase().indexOf(shelfName) > -1
+          })
       }
       return books
     },
