@@ -18,7 +18,7 @@
 
       <md-button
         class="md-raised md-primary"
-        v-on:click="find_suggest">
+        @click="findSuggest">
         検索
       </md-button>
     </form>
@@ -72,15 +72,15 @@ export default {
     }
   },
   methods: {
-    select (result) {
+    select(result) {
       result.selected = true;
       this.books.state.new_request = result.book;
     },
-    reset (result) {
+    reset(result) {
       result.selected = false;
       this.books.state.new_request = new Book();
     },
-    find_suggest () {
+    findSuggest () {
       const webSearch = new WebSearch(new GoogleBooksDriver())
       webSearch
         .find(this.query.title, this.query.author, this.query.isbn)
