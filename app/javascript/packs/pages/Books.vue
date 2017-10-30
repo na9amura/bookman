@@ -8,8 +8,8 @@
       </md-input-container>
 
       <md-input-container>
-        <label>Shelf Name</label>
-        <md-input v-model="shelfName">
+        <label>Tag</label>
+        <md-input v-model="tagName">
         </md-input>
       </md-input-container>
     </form>
@@ -41,7 +41,7 @@ export default {
     return {
       books: Books,
       filterKey: '',
-      shelfName: '',
+      tagName: '',
       shelves: [
         { name: 'Main Shelf', id: 1 },
         { name: 'Sub Shelf', id: 2 },
@@ -51,17 +51,18 @@ export default {
   computed: {
     filteredBooks () {
       const searchQuery = this.filterKey && this.filterKey.toLowerCase()
-      const shelfName = this.shelfName && this.shelfName.toLowerCase()
+      const tagName = this.tagName
       let books = this.books.state.list
 
-      if(searchQuery || shelfName) {
+      if(searchQuery || tagName) {
         books = books
           .filter((row) => {
             return Object.keys(row)
               .some((key) => String(row[key]).toLowerCase().indexOf(searchQuery) > -1)
           })
           .filter((book) => {
-            return book.shelf.name.toLocaleLowerCase().indexOf(shelfName) > -1
+            return book.tags.length !== 0 &&
+               book.tags.filter((tag) => tag.name === tagName).length === 1
           })
       }
       return books
