@@ -1,3 +1,1 @@
-json.tag do
-  json.merge! tag.attributes
-end
+json.merge! tag.attributes

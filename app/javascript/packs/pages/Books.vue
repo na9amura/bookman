@@ -91,23 +91,8 @@ export default {
         .then((response) => { this.shelves = response.data })
     },
     loadTags() {
-      this.tags = [
-        {
-          id: 999,
-          name: 'aaa',
-        },
-        {
-          id: 888,
-          name: 'bbb',
-        },
-
-        {
-          id: 777,
-          name: 'ccc',
-        }
-      ]
-//      axios.get('/tags.json')
-//        .then((response) => { this.tags = response.data })
+      axios.get('/tags.json')
+        .then((response) => { this.tags = response.data })
     },
     matchString(source, query) {
       return String(source).toLowerCase().indexOf(query) > -1
