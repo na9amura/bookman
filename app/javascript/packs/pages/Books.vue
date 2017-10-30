@@ -7,11 +7,13 @@
         </md-input>
       </md-input-container>
 
-      <md-input-container>
-        <label>Tag</label>
-        <md-input v-model="tagQuery">
-        </md-input>
-      </md-input-container>
+      <md-checkbox
+        v-for="tag in tags"
+        :key="tag.id"
+        :md-value="tag.name"
+        v-model="selectedTags">
+        {{ tag.name }}
+      </md-checkbox>
     </form>
     <div v-for="(book, index) in filteredBooks">
       <router-link
@@ -41,28 +43,25 @@ export default {
     return {
       books: Books,
       filterKey: '',
-      tagQuery: '',
-      shelves: [
-        { name: 'Main Shelf', id: 1 },
-        { name: 'Sub Shelf', id: 2 },
-      ]
+      shelves: [],
+      tags: [],
+      selectedTags: [],
     }
   },
   computed: {
     filteredBooks () {
       const searchQuery = this.filterKey && this.filterKey.toLowerCase()
-      const tagQuery = this.tagQuery
+      const selectedTags = this.selectedTags
       let books = this.books.state.list
 
-      if(searchQuery || tagQuery) {
+      if(searchQuery || selectedTags.length !== 0) {
         books = books
           .filter((row) => {
             return Object.keys(row)
               .some((key) => this.matchString(row[key], searchQuery))
           })
           .filter((book) => {
-            return book.tags.length !== 0 &&
-               book.tags.filter((tag) => this.matchString(tag.name, tagQuery)).length === 1
+            return book.tags.length !== 0 && this.matchedTags(book).length >= selectedTags.length
           })
       }
       return books
@@ -72,9 +71,13 @@ export default {
     this.init()
   },
   methods: {
+    matchedTags(book) {
+      return book.tags.filter((tag) => this.selectedTags.indexOf(tag.name) >= 0)
+    },
     init () {
       this.loadBooks()
       this.loadShelves()
+      this.loadTags()
     },
     loadBooks () {
       const vm = this
@@ -87,9 +90,28 @@ export default {
       axios.get('/shelves.json')
         .then((response) => { this.shelves = response.data })
     },
+    loadTags() {
+      this.tags = [
+        {
+          id: 999,
+          name: 'aaa',
+        },
+        {
+          id: 888,
+          name: 'bbb',
+        },
+
+        {
+          id: 777,
+          name: 'ccc',
+        }
+      ]
+//      axios.get('/tags.json')
+//        .then((response) => { this.tags = response.data })
+    },
     matchString(source, query) {
       return String(source).toLowerCase().indexOf(query) > -1
-    }
+    },
   }
 }
 </script>
