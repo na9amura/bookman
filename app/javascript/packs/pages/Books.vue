@@ -9,7 +9,7 @@
 
       <md-input-container>
         <label>Tag</label>
-        <md-input v-model="tagName">
+        <md-input v-model="tagQuery">
         </md-input>
       </md-input-container>
     </form>
@@ -41,7 +41,7 @@ export default {
     return {
       books: Books,
       filterKey: '',
-      tagName: '',
+      tagQuery: '',
       shelves: [
         { name: 'Main Shelf', id: 1 },
         { name: 'Sub Shelf', id: 2 },
@@ -51,18 +51,18 @@ export default {
   computed: {
     filteredBooks () {
       const searchQuery = this.filterKey && this.filterKey.toLowerCase()
-      const tagName = this.tagName
+      const tagQuery = this.tagQuery
       let books = this.books.state.list
 
-      if(searchQuery || tagName) {
+      if(searchQuery || tagQuery) {
         books = books
           .filter((row) => {
             return Object.keys(row)
-              .some((key) => String(row[key]).toLowerCase().indexOf(searchQuery) > -1)
+              .some((key) => this.matchString(row[key], searchQuery))
           })
           .filter((book) => {
             return book.tags.length !== 0 &&
-               book.tags.filter((tag) => tag.name === tagName).length === 1
+               book.tags.filter((tag) => this.matchString(tag.name, tagQuery)).length === 1
           })
       }
       return books
@@ -87,6 +87,9 @@ export default {
       axios.get('/shelves.json')
         .then((response) => { this.shelves = response.data })
     },
+    matchString(source, query) {
+      return String(source).toLowerCase().indexOf(query) > -1
+    }
   }
 }
 </script>
