@@ -9,6 +9,11 @@
     <md-menu ref="menu" :md-close-on-select="false">
       <span md-menu-trigger></span>
       <md-menu-content>
+        <md-menu-item>
+          <router-link :to="{ name: 'book', params: { id: book.id } }">
+            詳細を見る
+          </router-link>
+        </md-menu-item>
         <md-menu-item @click="editBook">登録内容編集</md-menu-item>
         <md-menu-item @click="deleteBook">本を削除</md-menu-item>
         <md-menu-item @click="openSubMenu('shelfMenu')">本棚変更</md-menu-item>
