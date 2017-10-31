@@ -67,6 +67,7 @@
   import Books from '../models/global/books'
   import BookCell from '../components/BookCell'
   import GoogleBooksDriver from '../infra/WebSearches/GoogleBooks'
+  import AmazonBooksDriver from '../infra/WebSearches/AmazonBooks'
   import WebSearch from '../infra/WebSearch'
 
   export default {
