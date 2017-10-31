@@ -53,4 +53,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # config.x.webpacker[:dev_server_host] = 'http://localhost:8080'
+  config.read_encrypted_secrets = true
 end
