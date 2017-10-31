@@ -4,10 +4,10 @@
       <md-select
         @selected="selectApi" >
         <md-option
-          v-for="api in apis"
-          :key="api.name"
-          :value="api.name">
-          {{ api.name }}
+          v-for="apiName in apiNames"
+          :key="apiName"
+          :value="apiName">
+          {{ apiName }}
         </md-option>
       </md-select>
       <md-input-container>
@@ -75,15 +75,20 @@
     components: {
       BookCell,
     },
+    computed: {
+      apiNames() {
+        return Object.keys(this.apis)
+      }
+    },
     created() {
       this.init()
     },
     data () {
       return {
-        apis: [
-          { name: 'google', plugin: this.googlePlugin },
-          { name: 'amazon', plugin: this.amazonPlugin },
-        ],
+        apis: {
+          google: 'googlePlugin',
+          amazon: 'amazonPlugin',
+        },
         plugin: {},
         googlePlugin: {},
         amazonPlugin: {},
@@ -101,9 +106,9 @@
         this.amazonPlugin = new WebSearch(new AmazonBooksDriver())
         this.plugin = this.googlePlugin
       },
-      selectApi() {
-        console.log('select api')
-        this.plugin = this.amazonPlugin
+      selectApi(name) {
+        const pluginName = this.apis[name]
+        this.plugin = this[pluginName]
       },
       select(result) {
         result.selected = true;
