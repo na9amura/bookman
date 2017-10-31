@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :books do
     resources :tags
   end
+  resources :tags, only: %i(index)
   resources :checkouts
   resources :checkins
   resources :shelves, only: %i(index)
