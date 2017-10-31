@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :checkouts
   resources :checkins
   resources :shelves, only: %i(index)
+  resources :amazon_books_api, only: %i(index)
 end
