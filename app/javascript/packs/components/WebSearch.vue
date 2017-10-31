@@ -1,6 +1,15 @@
 <template>
   <div>
     <form id="search">
+      <md-select
+        @selected="selectApi" >
+        <md-option
+          v-for="api in apis"
+          :key="api.name"
+          :value="api.name">
+          {{ api.name }}
+        </md-option>
+      </md-select>
       <md-input-container>
         <label>title</label>
         <md-input
@@ -65,10 +74,18 @@
     components: {
       BookCell,
     },
-    computed: {
+    created() {
+      this.init()
     },
     data () {
       return {
+        apis: [
+          { name: 'google', plugin: this.googlePlugin },
+          { name: 'amazon', plugin: this.amazonPlugin },
+        ],
+        plugin: {},
+        googlePlugin: {},
+        amazonPlugin: {},
         query: {
           title: '',
           author: '',
@@ -78,6 +95,15 @@
       }
     },
     methods: {
+      init() {
+        this.googlePlugin = new WebSearch(new GoogleBooksDriver())
+        this.amazonPlugin = new WebSearch(new AmazonBooksDriver())
+        this.plugin = this.googlePlugin
+      },
+      selectApi() {
+        console.log('select api')
+        this.plugin = this.amazonPlugin
+      },
       select(result) {
         result.selected = true;
         this.books.state.new_request = result.book;
@@ -87,8 +113,7 @@
         this.books.state.new_request = new Book();
       },
       findSuggest () {
-        const webSearch = new WebSearch(new GoogleBooksDriver())
-        webSearch
+        this.plugin
           .find(this.query.title, this.query.author, this.query.isbn)
           .then((books) => {
             this.books.state.web_search.results = books.map((book) => {
