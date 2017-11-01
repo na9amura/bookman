@@ -10,7 +10,7 @@ export default class {
 
     return axios.get(`/amazon_books_api/?q=${ query.to_params() }`)
       .then((res) => {
-        let items = res.data.items
+        let items = res.data.Items.Item
         return items.map(this._formatResult)
       })
       .catch((e) => {
@@ -30,11 +30,11 @@ export default class {
 
   _formatResult(result) {
     return new Book({
-      title: result.volumeInfo.title,
-      author: result.volumeInfo.authors[0],
-      publisher_name: result.volumeInfo.publisher,
-      isbn: result.volumeInfo.industryIdentifiers[0].identifier,
-      image_url: _.get(result, ['volumeInfo', 'imageLinks', 'thumbnail']),
+      title: result.ItemAttributes.Title,
+      author: result.ItemAttributes.Author[0],
+      publisher_name: result.ItemAttributes.Publisher,
+      isbn: result.ItemAttributes.ISBN,
+      image_url: result.SmallImage.URL,
     })
   }
 }
