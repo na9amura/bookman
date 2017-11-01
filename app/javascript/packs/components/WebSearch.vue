@@ -2,6 +2,7 @@
   <div>
     <form id="search">
       <md-select
+        v-model="apiNames[0]"
         @selected="selectApi" >
         <md-option
           v-for="apiName in apiNames"
