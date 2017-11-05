@@ -1,5 +1,5 @@
 import Query from './AmazonBooksQuery'
-import Book from '../../models/Book'
+import Book from '../../models/books/Amazon'
 
 export default class {
 
@@ -10,7 +10,7 @@ export default class {
 
     return axios.get(`/amazon_books_api/?q=${ query.to_params() }`)
       .then((res) => {
-        let items = res.data.Items.Item
+        let items = res.data.ItemSearchResponse.Items.Item
         return items.map(this._formatResult)
       })
       .catch((e) => {
@@ -23,18 +23,12 @@ export default class {
             isbn: '123456789678',
             image_url: 'http://localhost:9292/lgtm_go.png',
           })
-          return mockResults
         }
+        return mockResults
       })
   }
 
-  _formatResult(result) {
-    return new Book({
-      title: result.ItemAttributes.Title,
-      author: result.ItemAttributes.Author[0],
-      publisher_name: result.ItemAttributes.Publisher,
-      isbn: result.ItemAttributes.ISBN,
-      image_url: result.SmallImage.URL,
-    })
+  _formatResult(item) {
+    return new Book(item)
   }
 }
