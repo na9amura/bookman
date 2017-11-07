@@ -46,3 +46,6 @@ bower.json
 /node_modules
 
 .idea
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
