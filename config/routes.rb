@@ -12,4 +12,8 @@ Rails.application.routes.draw do
   resources :checkins
   resources :shelves, only: %i(index)
   resources :amazon_books_api, only: %i(index)
+
+  get '*path', to: 'application#index', constraints: -> (request) do
+    !request.xhr? && request.format.html?
+  end
 end
