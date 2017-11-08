@@ -27,7 +27,7 @@
       id: Number,
       attrs: {
         type: Array,
-        default: ['title', 'author', 'publisher_name'],
+        default: () => ['title', 'author', 'publisher_name'],
       }
     },
     components: {
