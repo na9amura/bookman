@@ -1,5 +1,5 @@
 import Query from './GoogleBooksQuery'
-import Book from '../../models/Book'
+import Book from '../../models/books/Google'
 
 export default class {
 
@@ -17,25 +17,24 @@ export default class {
         console.log(e);
         let mockResults = []
         for(let i = 0; i < 10; i++) {
-          mockResults.push({
-            title: i,
-            author: 'fizz bazz',
-            publisher_name: 'foobar enterprise',
-            isbn: '123456789678',
-            image_url: 'http://localhost:9292/lgtm_go.png',
-          })
-          return mockResults
+          mockResults.push(
+            {
+              volumeInfo: {
+                title: i,
+                authors: ['anonymous author'],
+                publisher: 'foobar enterprise',
+                industryIdentifiers: [{ identifier: '123456789678' }],
+                imageLinks: { thumbnail: 'http://localhost:9292/lgtm_go.png' },
+              }
+            }
+          )
         }
+        return mockResults.map(this._formatResult)
       })
   }
 
   _formatResult(result) {
-    return new Book({
-      title: result.volumeInfo.title,
-      author: result.volumeInfo.authors[0],
-      publisher_name: result.volumeInfo.publisher,
-      isbn: result.volumeInfo.industryIdentifiers[0].identifier,
-      image_url: _.get(result, ['volumeInfo', 'imageLinks', 'thumbnail']),
-    })
+    console.log(new Book(result))
+    return new Book(result)
   }
 }

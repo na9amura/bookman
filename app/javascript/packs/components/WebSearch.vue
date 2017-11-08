@@ -1,6 +1,16 @@
 <template>
   <div>
     <form id="search" class="search--form">
+      <md-select
+        v-model="apiNames[0]"
+        @selected="selectApi" >
+        <md-option
+          v-for="apiName in apiNames"
+          :key="apiName"
+          :value="apiName">
+          {{ apiName }}
+        </md-option>
+      </md-select>
       <md-input-container>
         <label>title</label>
         <md-input
@@ -58,6 +68,7 @@
   import Books from '../models/global/books'
   import BookCell from '../components/BookCell'
   import GoogleBooksDriver from '../infra/WebSearches/GoogleBooks'
+  import AmazonBooksDriver from '../infra/WebSearches/AmazonBooks'
   import WebSearch from '../infra/WebSearch'
 
   export default {
@@ -66,9 +77,22 @@
       BookCell,
     },
     computed: {
+      apiNames() {
+        return Object.keys(this.apis)
+      }
+    },
+    created() {
+      this.init()
     },
     data () {
       return {
+        apis: {
+          google: 'googlePlugin',
+          amazon: 'amazonPlugin',
+        },
+        plugin: {},
+        googlePlugin: {},
+        amazonPlugin: {},
         query: {
           title: '',
           author: '',
@@ -78,6 +102,15 @@
       }
     },
     methods: {
+      init() {
+        this.googlePlugin = new WebSearch(new GoogleBooksDriver())
+        this.amazonPlugin = new WebSearch(new AmazonBooksDriver())
+        this.plugin = this.googlePlugin
+      },
+      selectApi(name) {
+        const pluginName = this.apis[name]
+        this.plugin = this[pluginName]
+      },
       select(result) {
         result.selected = true;
         this.books.state.new_request = result.book;
@@ -87,8 +120,7 @@
         this.books.state.new_request = new Book();
       },
       findSuggest () {
-        const webSearch = new WebSearch(new GoogleBooksDriver())
-        webSearch
+        this.plugin
           .find(this.query.title, this.query.author, this.query.isbn)
           .then((books) => {
             this.books.state.web_search.results = books.map((book) => {
