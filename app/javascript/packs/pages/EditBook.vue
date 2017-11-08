@@ -5,18 +5,11 @@
       <h2>
         Edit {{ book.title }}
       </h2>
-      <md-input-container>
-        <label>title</label>
-        <md-input v-model="book.title"></md-input>
-      </md-input-container>
-      <md-input-container>
-        <label>author</label>
-        <md-input v-model="book.author"></md-input>
-      </md-input-container>
-      <md-input-container>
-        <label>publisher_name</label>
-        <md-input v-model="book.publisher_name"></md-input>
-      </md-input-container>
+      <text-box
+        v-for="name in attrs"
+        :target="book"
+        :attr_name="name">
+      </text-box>
       <md-button
         @click="update()">
         保存
@@ -26,10 +19,19 @@
 </template>
 
 <script>
+  import TextBox from '../components/form/TextBox'
+
   export default {
     name: 'edit-book',
     props: {
-      id: Number
+      id: Number,
+      attrs: {
+        type: Array,
+        default: ['title', 'author', 'publisher_name'],
+      }
+    },
+    components: {
+      TextBox,
     },
     data() {
       return {

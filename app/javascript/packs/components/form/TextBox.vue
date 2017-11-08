@@ -1,30 +1,18 @@
 <template>
-  <div>
-    <div>
-      <label v-bind:id="id">{{ title }}</label>
-      <input
-        v-bind:id="id"
-        v-model="text"/>
-    </div>
-  </div>
+  <md-input-container>
+    <label>{{ attr_name }}</label>
+    <md-input
+      v-model="target[attr_name]">
+    </md-input>
+  </md-input-container>
 </template>
 
 <script>
-export default {
-  name: 'text-box',
-  props: {
-    id: '',
-    title: '',
-  },
-  data () {
-    return {
-      text: '',
-    }
-  },
-  watch: {
-    text (val) {
-      this.$emit('update:text', val)
-    }
+  export default {
+    name: 'text-box',
+    props: {
+      target: '',
+      attr_name: '',
+    },
   }
-}
 </script>
