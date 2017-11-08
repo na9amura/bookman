@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form id="search">
+    <form id="search" class="search--form">
       <md-input-container>
         <label>title</label>
         <md-input
@@ -108,4 +108,6 @@
   .suggests
     display: flex
     flex-direction: column
+  .search--form
+    padding: 2em
 </style>

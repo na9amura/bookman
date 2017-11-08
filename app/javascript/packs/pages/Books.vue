@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form id="search">
+    <form id="search" class="books--form">
       <md-input-container>
         <label>Search</label>
         <md-input v-model="filterKey">
@@ -100,3 +100,9 @@ export default {
   }
 }
 </script>
+
+
+<style scoped lang="sass">
+  .books--form
+    padding: 2em
+</style>
