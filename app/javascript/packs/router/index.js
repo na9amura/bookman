@@ -4,6 +4,7 @@ import Books from '../pages/Books'
 import Book from '../pages/Book'
 import BookForm from '../pages/BookForm'
 import Checkouts from '../pages/Checkouts'
+import EditBook from '../pages/EditBook'
 
 Vue.use(Router)
 
@@ -29,6 +30,12 @@ export default new Router({
       name: 'checkouts',
       path: 'checkouts',
       component: Checkouts,
+    },
+    {
+      name: 'edit-book',
+      path: '/books/edit/:id',
+      component: EditBook,
+      props: true,
     }
   ]
 })

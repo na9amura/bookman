@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form id="search">
+    <form id="search" class="search--form">
       <md-select
         v-model="apiNames[0]"
         @selected="selectApi" >
@@ -140,4 +140,6 @@
   .suggests
     display: flex
     flex-direction: column
+  .search--form
+    padding: 2em
 </style>

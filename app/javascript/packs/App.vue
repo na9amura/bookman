@@ -9,17 +9,15 @@
 </template>
 
 <script>
-import MenuBar from "./components/MenuBar.vue";
+  import MenuBar from "./components/MenuBar.vue";
 
-export default {
-  name: 'app',
-  components: {
-    MenuBar,
-  },
+  export default {
+    name: 'app',
+    components: {
+      MenuBar,
+    },
 }
 </script>
 
 <style scoped lang="sass">
-.main-content
-  padding: 2em
 </style>

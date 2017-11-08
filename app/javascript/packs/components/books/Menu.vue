@@ -14,7 +14,11 @@
             詳細を見る
           </router-link>
         </md-menu-item>
-        <md-menu-item @click="editBook">登録内容編集</md-menu-item>
+        <md-menu-item>
+          <router-link :to="{ name: 'edit-book', params: { id: book.id } }">
+            登録内容編集
+          </router-link>
+        </md-menu-item>
         <md-menu-item @click="deleteBook">本を削除</md-menu-item>
         <md-menu-item @click="openSubMenu('shelfMenu')">本棚変更</md-menu-item>
         <shelf-menu :book="book" :shelves="shelves" ref="shelfMenu"></shelf-menu>
