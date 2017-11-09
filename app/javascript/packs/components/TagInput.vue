@@ -21,27 +21,27 @@
 </template>
 
 <script>
-export default {
-  name: 'tag-input',
-  props:  {
-    book: Object,
-  },
-  data () {
-    return {
-      suggests: [{ name: 'foo', value: '1' }, { name: 'bar', value: '2' }],
-      newTag: '',
-    }
-  },
-  methods: {
-    addTag() {
-      this.$emit('add-tag', this.newTag)
-      this.newTag = ''
+  export default {
+    name: 'tag-input',
+    props:  {
+      book: Object,
     },
-    removeTag(selected) {
-      this.$emit('remove-tag', selected.id)
-    }
-  },
-}
+    data () {
+      return {
+        suggests: [{ name: 'foo', value: '1' }, { name: 'bar', value: '2' }],
+        newTag: '',
+      }
+    },
+    methods: {
+      addTag() {
+        this.$emit('add-tag', this.newTag)
+        this.newTag = ''
+      },
+      removeTag(selected) {
+        this.$emit('remove-tag', selected.id)
+      }
+    },
+  }
 </script>
 
 <style scoped lang="sass">
