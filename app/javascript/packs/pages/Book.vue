@@ -47,65 +47,65 @@
 </template>
 
 <script>
-import CheckOutForm from '../components/CheckOutForm'
-import TagList from '../components/TagList'
-import TagInput from '../components/TagInput'
+  import CheckOutForm from '../components/CheckOutForm'
+  import TagList from '../components/TagList'
+  import TagInput from '../components/TagInput'
 
-export default {
-  name: 'book',
-  components: {
-    CheckOutForm,
-    TagList,
-    TagInput,
-  },
-  props: {
-    id: Number,
-  },
-  data: () => {
-    return {
-      book: {},
-    }
-  },
-  created: function() {
-    this.init()
-  },
-  methods: {
-    init () {
-      this.loadBook()
+  export default {
+    name: 'book',
+    components: {
+      CheckOutForm,
+      TagList,
+      TagInput,
     },
-    loadBook () {
-      let vm = this
-      axios.get(`/books/${ vm.id }.json`)
-        .then((response) => {
-          vm.book = response.data
-        })
+    props: {
+      id: Number,
     },
-    addTag(tagName) {
-      let vm = this
-      axios
-        .post(
-          `/books/${ vm.id }/tags.json`,
-          { tag: {name: tagName} },
-        )
-        .then((response) => {
-          const tag = response.data.tag
-          vm.book.tags.push(tag)
-        })
+    data: () => {
+      return {
+        book: {},
+      }
     },
-    removeTag(tagId) {
-      let vm = this
-      axios
-        .delete(`/books/${ vm.id }/tags/${ tagId }.json`)
-        .then((response) => {
-          const removed = response.data.tag
-          vm.book.tags = vm.book.tags.filter((tag) => tag.id !== removed.id)
-        })
+    created() {
+      this.init()
     },
-    checkout() {
-      this.loadBook()
-    }
-  },
-}
+    methods: {
+      init () {
+        this.loadBook()
+      },
+      loadBook () {
+        let vm = this
+        axios.get(`/books/${ vm.id }.json`)
+          .then((response) => {
+            vm.book = response.data
+          })
+      },
+      addTag(tagName) {
+        let vm = this
+        axios
+          .post(
+            `/books/${ vm.id }/tags.json`,
+            { tag: {name: tagName} },
+          )
+          .then((response) => {
+            const tag = response.data.tag
+            vm.book.tags.push(tag)
+          })
+      },
+      removeTag(tagId) {
+        let vm = this
+        axios
+          .delete(`/books/${ vm.id }/tags/${ tagId }.json`)
+          .then((response) => {
+            const removed = response.data.tag
+            vm.book.tags = vm.book.tags.filter((tag) => tag.id !== removed.id)
+          })
+      },
+      checkout() {
+        this.loadBook()
+      }
+    },
+  }
 </script>
 
 <style scoped lang="sass">
