@@ -115,16 +115,14 @@
   width: 100%
   padding: 2%
 
-.book
+.book--image-area
+  flex-shrink: 6
+  background-color: gray
+  width: 100%
 
-  &--image-area
-    flex-shrink: 6
-    background-color: gray
-    width: 100%
+.book--image
+  width: 100%
 
-  &--image
-    width: 100%
-
-  &--tags
-    padding-bottom: 1em
+.book--tags
+  padding-bottom: 1em
 </style>
