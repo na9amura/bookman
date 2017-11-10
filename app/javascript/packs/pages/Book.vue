@@ -1,47 +1,44 @@
 <template>
-  <div>
-    <div v-if="book !== undefined && book.length != 0">
-      <input type="file" accept="image/*;capture=camera">
-      <div class="information">
-        <div class="book--image-area">
-          <img v-bind:src="book.image_url" class="book--image">
-        </div>
-        <div class="text">
-          <div class="titles">
-            <h3>
-              <md-icon>book</md-icon>
-              <span>{{ book.title }}</span>
-            </h3>
-            <h3>
-              <span>著者：{{ book.author }}</span>
-              <span>出版社：{{ book.publisher_name }}</span>
-            </h3>
-          </div>
-          <div class="book--tags">
-            <tag-input
-              :book=book
-              v-on:add-tag="addTag"
-              v-on:remove-tag="removeTag">
-            </tag-input>
-          </div>
-          <md-list>
-            <md-list-item>
-              <md-icon>fingerprint</md-icon>
-              <span>{{ book.isbn }}</span>
-            </md-list-item>
-            <div v-if="book.shelf">
-              <md-list-item>
-                <md-icon>view_column</md-icon>
-                <span>{{ book.shelf.name }} にあります</span>
-              </md-list-item>
-            </div>
-            <check-out-form
-              :book=book
-              @checkout="checkout">
-            </check-out-form>
-          </md-list>
-        </div>
+  <div
+    v-if="book !== undefined && book.length != 0"
+    class="book--information">
+    <div class="book--image-area">
+      <img v-bind:src="book.image_url" class="book--image">
+    </div>
+    <div class="text">
+      <div class="titles">
+        <h3>
+          <md-icon>book</md-icon>
+          <span>{{ book.title }}</span>
+        </h3>
+        <h3>
+          <span>著者：{{ book.author }}</span>
+          <span>出版社：{{ book.publisher_name }}</span>
+        </h3>
       </div>
+      <div class="book--tags">
+        <tag-input
+          :book=book
+          v-on:add-tag="addTag"
+          v-on:remove-tag="removeTag">
+        </tag-input>
+      </div>
+      <md-list>
+        <md-list-item>
+          <md-icon>fingerprint</md-icon>
+          <span>{{ book.isbn }}</span>
+        </md-list-item>
+        <div v-if="book.shelf">
+          <md-list-item>
+            <md-icon>view_column</md-icon>
+            <span>{{ book.shelf.name }} にあります</span>
+          </md-list-item>
+        </div>
+        <check-out-form
+          :book=book
+          @checkout="checkout">
+        </check-out-form>
+      </md-list>
     </div>
   </div>
 </template>
