@@ -106,8 +106,9 @@
 </script>
 
 <style scoped lang="sass">
-.information
+.book--information
   display: flex
+  padding: 2em
 
 .text
   flex-shrink: 3
