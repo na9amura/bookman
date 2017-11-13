@@ -67,4 +67,7 @@
     margin-top: 20em
     height: 100em
     height: -webkit-fill-available
+    border-top-style: solid
+    border-top-width: 1px
+    border-top-color: rgba(0, 0, 0, .12)
 </style>
