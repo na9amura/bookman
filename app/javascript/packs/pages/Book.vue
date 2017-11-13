@@ -17,15 +17,15 @@
         </tag-input>
       </div>
       <md-list>
+        <check-out-form
+          :book=book
+          @checkout="checkout">
+        </check-out-form>
         <attribute
           v-for="name in attrs"
           :book="book"
           :attrName="name">
         </attribute>
-        <check-out-form
-          :book=book
-          @checkout="checkout">
-        </check-out-form>
       </md-list>
     </div>
   </div>
