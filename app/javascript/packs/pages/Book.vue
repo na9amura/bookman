@@ -1,11 +1,8 @@
 <template>
   <div
-    v-if="book !== undefined && book.length != 0"
-    class="book--information">
-    <div class="book--image-area">
-      <img v-bind:src="book.image_url" class="book--image">
-    </div>
-    <div class="text">
+    v-if="book !== undefined && book.length != 0">
+    <cover-background :book="book"></cover-background>
+    <div class="book--information">
       <div class="titles">
         <h3>
           <md-icon>book</md-icon>
@@ -35,18 +32,20 @@
 </template>
 
 <script>
+  import Attribute from '../components/books/Attribute'
   import CheckOutForm from '../components/CheckOutForm'
+  import CoverBackground from '../components/books/CoverBackground'
   import TagList from '../components/TagList'
   import TagInput from '../components/TagInput'
-  import Attribute from '../components/books/Attribute'
 
   export default {
     name: 'book',
     components: {
+      Attribute,
       CheckOutForm,
+      CoverBackground,
       TagList,
       TagInput,
-      Attribute,
     },
     props: {
       id: Number,
@@ -109,23 +108,14 @@
 </script>
 
 <style scoped lang="sass">
-.book--information
-  display: flex
-  padding: 2em
-
-.text
-  flex-shrink: 3
-  width: 100%
-  padding: 2%
-
-.book--image-area
-  flex-shrink: 6
-  background-color: gray
-  width: 100%
-
-.book--image
-  width: 100%
-
 .book--tags
   padding-bottom: 1em
+
+.book--information
+  background-color: white
+  opacity: 0.95
+  padding: 2em
+  margin-top: 20em
+  height: 100em
+  height: -webkit-fill-available
 </style>

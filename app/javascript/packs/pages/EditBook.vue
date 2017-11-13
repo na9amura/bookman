@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img v-bind:src="book.image_url" class="bg">
+    <cover-background :book="book"></cover-background>
     <div class="edit">
       <h2>
         Edit {{ book.title }}
@@ -20,6 +20,7 @@
 
 <script>
   import TextBox from '../components/form/TextBox'
+  import CoverBackground from '../components/books/CoverBackground'
 
   export default {
     name: 'edit-book',
@@ -31,6 +32,7 @@
       }
     },
     components: {
+      CoverBackground,
       TextBox,
     },
     data() {
@@ -58,13 +60,6 @@
 </script>
 
 <style scoped lang="sass">
-  .bg
-    width: 100%
-    position: fixed
-    top: 0
-    left: 0
-    right: 0
-    z-index: -10
   .edit
     background-color: white
     opacity: 0.95
