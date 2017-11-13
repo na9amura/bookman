@@ -23,8 +23,7 @@
         <attribute
           v-for="name in attrs"
           :book="book"
-          :attrName="name"
-        >
+          :attrName="name">
         </attribute>
         <check-out-form
           :book=book
