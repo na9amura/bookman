@@ -2,31 +2,33 @@
   <div
     v-if="book !== undefined && book.length != 0">
     <cover-background :book="book"></cover-background>
-    <div class="book--information">
-      <div class="titles">
-        <h3>
-          <md-icon>book</md-icon>
-          <span>{{ book.title }}</span>
-        </h3>
+    <div class="book--information-frame">
+      <div class="book--information">
+        <div class="titles">
+          <h3>
+            <md-icon>book</md-icon>
+            <span>{{ book.title }}</span>
+          </h3>
+        </div>
+        <div class="book--tags">
+          <tag-input
+            :book=book
+            v-on:add-tag="addTag"
+            v-on:remove-tag="removeTag">
+          </tag-input>
+        </div>
+        <md-list>
+          <check-out-form
+            :book=book
+            @checkout="checkout">
+          </check-out-form>
+          <attribute
+            v-for="name in attrs"
+            :book="book"
+            :attrName="name">
+          </attribute>
+        </md-list>
       </div>
-      <div class="book--tags">
-        <tag-input
-          :book=book
-          v-on:add-tag="addTag"
-          v-on:remove-tag="removeTag">
-        </tag-input>
-      </div>
-      <md-list>
-        <check-out-form
-          :book=book
-          @checkout="checkout">
-        </check-out-form>
-        <attribute
-          v-for="name in attrs"
-          :book="book"
-          :attrName="name">
-        </attribute>
-      </md-list>
     </div>
   </div>
 </template>
@@ -108,17 +110,20 @@
 </script>
 
 <style scoped lang="sass">
-.book--tags
-  padding-bottom: 1em
+  .book--tags
+    padding-bottom: 1em
 
-.book--information
-  background-color: white
-  opacity: 0.95
-  padding: 2em
-  margin-top: 20em
-  height: 100em
-  height: -webkit-fill-available
-  border-top-style: solid
-  border-top-width: 1px
-  border-top-color: #ccc
+  .book--information-frame
+    display: grid
+    grid-template-rows: 10/10
+    height: -webkit-fill-available
+
+  .book--information
+    grid-row: 6/6
+    background-color: white
+    opacity: 0.95
+    padding: 2em
+    border-top-style: solid
+    border-top-width: 1px
+    border-top-color: #ccc
 </style>
