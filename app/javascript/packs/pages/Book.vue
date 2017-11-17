@@ -1,42 +1,27 @@
 <template>
-  <div
-    v-if="book !== undefined && book.length != 0">
-    <cover-background :book="book"></cover-background>
-    <div class="book--information-frame">
-      <div class="book--information">
-        <div class="titles">
-          <h3>
-            <md-icon>book</md-icon>
-            <span>{{ book.title }}</span>
-          </h3>
-        </div>
-        <div class="book--tags">
-          <tag-input
-            :book=book
-            v-on:add-tag="addTag"
-            v-on:remove-tag="removeTag">
-          </tag-input>
-        </div>
-        <md-list>
-          <check-out-form
-            :book=book
-            @checkout="checkout">
-          </check-out-form>
-          <attribute
-            v-for="name in attrs"
-            :book="book"
-            :attrName="name">
-          </attribute>
-        </md-list>
-      </div>
+  <cover-background-layout :book="book">
+    <div class="book--tags">
+      <tag-input :book=book
+                 @add-tag="addTag"
+                 @remove-tag="removeTag">
+      </tag-input>
     </div>
-  </div>
+    <md-list>
+      <check-out-form :book=book
+                      @checkout="checkout">
+      </check-out-form>
+      <attribute v-for="name in attrs"
+                 :book="book"
+                 :attrName="name">
+      </attribute>
+    </md-list>
+  </cover-background-layout>
 </template>
 
 <script>
   import Attribute from '../components/books/Attribute'
   import CheckOutForm from '../components/CheckOutForm'
-  import CoverBackground from '../components/books/CoverBackground'
+  import CoverBackgroundLayout from '../components/books/CoverBackgroundLayout'
   import TagList from '../components/TagList'
   import TagInput from '../components/TagInput'
 
@@ -45,7 +30,7 @@
     components: {
       Attribute,
       CheckOutForm,
-      CoverBackground,
+      CoverBackgroundLayout,
       TagList,
       TagInput,
     },

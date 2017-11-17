@@ -1,26 +1,16 @@
 <template>
-  <div>
-    <cover-background :book="book"></cover-background>
-    <div class="edit">
-      <h2>
-        Edit {{ book.title }}
-      </h2>
-      <text-box
-        v-for="name in attrs"
-        :target="book"
-        :attr_name="name">
-      </text-box>
-      <md-button
-        @click="update()">
-        保存
-      </md-button>
-    </div>
-  </div>
+  <cover-background-layout :book="book">
+    <text-box v-for="name in attrs"
+              :target="book"
+              :attr_name="name">
+    </text-box>
+    <md-button @click="update">保存</md-button>
+  </cover-background-layout>
 </template>
 
 <script>
   import TextBox from '../components/form/TextBox'
-  import CoverBackground from '../components/books/CoverBackground'
+  import CoverBackgroundLayout from '../components/books/CoverBackgroundLayout'
 
   export default {
     name: 'edit-book',
@@ -32,7 +22,7 @@
       }
     },
     components: {
-      CoverBackground,
+      CoverBackgroundLayout,
       TextBox,
     },
     data() {
@@ -60,14 +50,4 @@
 </script>
 
 <style scoped lang="sass">
-  .edit
-    background-color: white
-    opacity: 0.95
-    padding: 2em
-    margin-top: 20em
-    height: 100em
-    height: -webkit-fill-available
-    border-top-style: solid
-    border-top-width: 1px
-    border-top-color: rgba(0, 0, 0, .12)
 </style>
