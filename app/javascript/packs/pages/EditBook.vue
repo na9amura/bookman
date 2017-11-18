@@ -1,16 +1,16 @@
 <template>
-  <cover-background-layout :book="book">
+  <single-book-layout :book="book">
     <text-box v-for="name in attrs"
               :target="book"
               :attr_name="name">
     </text-box>
     <md-button @click="update">保存</md-button>
-  </cover-background-layout>
+  </single-book-layout>
 </template>
 
 <script>
   import TextBox from '../components/form/TextBox'
-  import CoverBackgroundLayout from '../components/books/CoverBackgroundLayout'
+  import SingleBookLayout from '../components/books/SingleBookLayout'
 
   export default {
     name: 'edit-book',
@@ -22,7 +22,7 @@
       }
     },
     components: {
-      CoverBackgroundLayout,
+      SingleBookLayout,
       TextBox,
     },
     data() {

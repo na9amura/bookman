@@ -1,5 +1,5 @@
 <template>
-  <cover-background-layout :book="book">
+  <single-book-layout :book="book">
     <div class="book--tags">
       <tag-input :book=book
                  @add-tag="addTag"
@@ -15,13 +15,13 @@
                  :attrName="name">
       </attribute>
     </md-list>
-  </cover-background-layout>
+  </single-book-layout>
 </template>
 
 <script>
   import Attribute from '../components/books/Attribute'
   import CheckOutForm from '../components/CheckOutForm'
-  import CoverBackgroundLayout from '../components/books/CoverBackgroundLayout'
+  import SingleBookLayout from '../components/books/SingleBookLayout'
   import TagList from '../components/TagList'
   import TagInput from '../components/TagInput'
 
@@ -30,7 +30,7 @@
     components: {
       Attribute,
       CheckOutForm,
-      CoverBackgroundLayout,
+      SingleBookLayout,
       TagList,
       TagInput,
     },

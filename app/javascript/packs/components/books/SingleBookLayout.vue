@@ -16,7 +16,7 @@
 
 <script>
   export default {
-    name: 'cover-background-layout',
+    name: 'single-book-layout',
     props: {
       book: Object,
     },
