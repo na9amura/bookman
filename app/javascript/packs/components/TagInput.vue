@@ -14,6 +14,7 @@
         :placeholder="`Tags for ${ book.title }`"
         @keydown.native.prevent.enter="addTag"
         @keydown.native.prevent.tab="addTag"
+        @click="addTag"
         v-model="newTag">
       </md-autocomplete>
     </md-input-container>
@@ -28,25 +29,11 @@
     },
     data () {
       return {
-        suggests: [],
+        suggests: [{ name: 'foo' }],
         newTag: '',
       }
     },
-    created() {
-      this.init()
-    },
     methods: {
-      init () {
-        this.loadSuggests()
-      },
-      loadSuggests() {
-        const vm = this
-        axios
-          .get(`/tags.json`)
-          .then((res) => {
-            vm.suggests = res.data
-          })
-      },
       addTag() {
         this.$emit('add-tag', this.newTag)
         this.newTag = ''

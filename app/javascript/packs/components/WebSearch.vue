@@ -76,9 +76,20 @@
     components: {
       BookCell,
     },
+    props: {
+      p_apis: {
+        type: Object,
+        default() {
+          return {
+            google: new WebSearch(new GoogleBooksDriver()),
+            amazon: new WebSearch(new AmazonBooksDriver()),
+          }
+        }
+      }
+    },
     computed: {
       apiNames() {
-        return Object.keys(this.apis)
+        return Object.keys(this.p_apis)
       }
     },
     created() {
@@ -108,8 +119,7 @@
         this.plugin = this.googlePlugin
       },
       selectApi(name) {
-        const pluginName = this.apis[name]
-        this.plugin = this[pluginName]
+        this.plugin = this.p_apis[name]
       },
       select(result) {
         result.selected = true;
