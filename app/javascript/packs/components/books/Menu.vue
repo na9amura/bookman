@@ -72,9 +72,6 @@
       selectableShelf(newShelf) {
         return this.book.shelf_id !== newShelf.id
       },
-      editBook() {
-        console.log('Edit Book')
-      },
       deleteBook() {
         console.log('Delete Book')
       },
