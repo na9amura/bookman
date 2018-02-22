@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'coffee-rails', '~> 4.2'
+gem 'graphql'
 gem 'haml-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'jwt'
@@ -31,3 +32,5 @@ group :development do
   gem 'temple'
   gem 'web-console', '>= 3.3.0'
 end
+
+gem 'graphiql-rails', group: :development
