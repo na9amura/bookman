@@ -104,7 +104,7 @@ GEM
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
     puma (3.10.0)
-    rack (2.0.3)
+    rack (2.2.3)
     rack-proxy (0.6.2)
       rack
     rack-test (0.6.3)
