@@ -18,7 +18,7 @@
     "file-loader": "^0.11.2",
     "glob": "^7.1.2",
     "js-yaml": "^3.9.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "node-sass": "^4.6.0",
     "path-complete-extname": "^0.1.0",
     "postcss-cssnext": "^3.0.0",
